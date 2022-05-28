@@ -1,6 +1,6 @@
 {
-  "movieId" : 284052,
-  "title": "doctor strange",
-  "poster": "test.png",
-  "year": "2022"
+  "id" : 284052,
+  "original_title": "doctor strange",
+  "poster_path": "test.png",
+  "release_date": "2022"
 }

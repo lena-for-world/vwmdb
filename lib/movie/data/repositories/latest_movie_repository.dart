@@ -6,8 +6,10 @@ import '../models/latest_movie_model.dart';
 import 'movie_repository.dart';
 
 abstract class LatestMovieRepository {
-  Future<List<LatestMovieModel>> getLatestMovies();
-  Future<String> getTrailerUrl(int movieId);
+  Future<List<dynamic>> getTrailerJson(int movieId);
+  Future<List<dynamic>> getLatestMoviesJson();
+  List<LatestMovieModel> getLatestMovies(List<dynamic> movieJson);
+  String getTrailerUrl(List<dynamic> trailerJson);
 }
 
 class LatestMovieRepositoryImpl implements MovieRepository, LatestMovieRepository {
@@ -16,8 +18,18 @@ class LatestMovieRepositoryImpl implements MovieRepository, LatestMovieRepositor
   LatestMovieRepositoryImpl(this.latestMovieRemoteDataSource);
 
   @override
-  Future<List<LatestMovieModel>> getLatestMovies() async {
-    return await latestMovieRemoteDataSource.getLatestMovies();
+  Future<List<dynamic>> getTrailerJson(int movieId) async {
+    return await latestMovieRemoteDataSource.getTrailerJson(movieId);
+  }
+
+  @override
+  Future<List<dynamic>> getLatestMoviesJson() async {
+    return await latestMovieRemoteDataSource.getLatestMoviesJson();
+  }
+
+  @override
+  List<LatestMovieModel> getLatestMovies(List<dynamic> movieJson) {
+    return latestMovieRemoteDataSource.getLatestMovies(movieJson);
   }
 
   @override
@@ -27,9 +39,8 @@ class LatestMovieRepositoryImpl implements MovieRepository, LatestMovieRepositor
   }
 
   @override
-  Future<String> getTrailerUrl(int movieId) async {
-    // TODO: implement getTrailerUrl
-    return await latestMovieRemoteDataSource.getTrailerUrl(movieId);
+  String getTrailerUrl(List<dynamic> trailerJson) {
+    return latestMovieRemoteDataSource.getTrailerUrl(trailerJson);
   }
 
 }

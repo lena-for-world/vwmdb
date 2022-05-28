@@ -8,8 +8,10 @@ import '../../domain/entities/movie_entity.dart';
 import '../models/latest_movie_model.dart';
 
 abstract class LatestMovieRemoteDataSource {
-  Future<List<LatestMovieModel>> getLatestMovies();
-  Future<String> getTrailerUrl(int movieId);
+  Future<List<dynamic>> getTrailerJson(int movieId);
+  Future<List<dynamic>> getLatestMoviesJson();
+  List<LatestMovieModel> getLatestMovies(List<dynamic> movieJson);
+  String getTrailerUrl(List<dynamic> trailerJson);
 }
 
 class LatestMovieRemoteDataSourceImpl implements LatestMovieRemoteDataSource {
@@ -17,27 +19,22 @@ class LatestMovieRemoteDataSourceImpl implements LatestMovieRemoteDataSource {
   LatestMovieRemoteDataSourceImpl();
   Dio dio = Dio();
 
+  @override
   Future<List<dynamic>> getLatestMoviesJson() async {
-    final jsonMovies = await dio.get('https://api.themoviedb.org/3/movie/now_playing?api_key.dart=ebdee09f8577cf2e8727490069a1db3f&page=1');
+    final jsonMovies = await dio.get('https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}');
     return json.decode(jsonMovies.toString())['results'];
   }
 
   @override
-  Future<List<LatestMovieModel>> getLatestMovies() async {
+  List<LatestMovieModel> getLatestMovies(List<dynamic> movieJson) {
     // TODO: implement getLatestMovies
     List<LatestMovieModel> latestMovieModels = [];
-    final movies = await getLatestMoviesJson();
-    movies.forEach((movie) => {
+    movieJson.forEach((movie) => {
       latestMovieModels.add(
-          LatestMovieModel(
-              movieId: movie['id'],
-              title: movie['original_title'],
-              poster: movie['poster_path'],
-              year: movie['release_date']
-          )
+          LatestMovieModel.fromJson(movie)
       )
     });
-    return Future.value(latestMovieModels);
+    return latestMovieModels;
   }
 
   @override
@@ -46,15 +43,15 @@ class LatestMovieRemoteDataSourceImpl implements LatestMovieRemoteDataSource {
     throw UnimplementedError();
   }
 
-  Future<List<dynamic>> getTrailerJson() async {
-    final jsonMovies = await dio.get('https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=${API_KEY}&language=en-US');
+  Future<List<dynamic>> getTrailerJson(int movieId) async {
+    final jsonMovies = await dio.get('https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US');
     return json.decode(jsonMovies.toString())['results'];
   }
 
   @override
-  Future<String> getTrailerUrl(int movieId) async {
+  String getTrailerUrl(List<dynamic> trailerJson) {
     // TODO: implement getTrailerUrl
-    throw UnimplementedError();
+    return trailerJson[0]['id'];
   }
   
 }
