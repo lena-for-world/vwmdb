@@ -9,10 +9,16 @@ abstract class RateLocalSource {
 
 class RateLocalSourceImpl implements RateLocalSource {
 
+  late final Box box;
+
   @override
   bool getIfMovieInWatchList(int movieId) {
     // TODO : getIfmovieinwatchlist
-    if(!HiveBox.box.containsKey(284052)) {
+    // if(!HiveBox().IfBoxOpened()) {
+    //   box = HiveBox().OpenTheBox("myMovies");
+    // }
+    box = Hive.box('myMovies');
+    if(!box.containsKey(284052)) {
       return false;
     }
     return true;

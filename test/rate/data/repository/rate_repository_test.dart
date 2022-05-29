@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
 import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
 
@@ -14,19 +15,23 @@ void main() {
   RateRepository? rateRepository;
   RateLocalSourceImpl? rateLocalSourceImpl;
   MockRateLocalSourceImpl? mockRateLocalSourceImpl;
+  var box;
 
-  setUp(() {
+  setUp(() async {
     // rateLocalSource = RateLocalSourceImpl();
     //mockRateLocalSourceImpl = MockRateLocalSourceImpl();
     rateLocalSourceImpl = RateLocalSourceImpl();
     rateRepository = RateRepositoryImpl(rateLocalSourceImpl!);
+    Hive.initFlutter();
+    await Hive.openBox('testBox');
+    box = Hive.box("testBox");
   });
 
-  test('시청 목록에 영화가 있는지 조회', () {
+  // TODO : repository를 사용하는 곳에서 box 가져오기
+  test('시청 목록에 영화가 있는지 조회', () async {
      // when(mockRateLocalSource!.getIfMovieInWatchList(284052))
      // .thenAnswer((_) => boolTrue);
-
-    final result = rateRepository!.getIfMovieInWatchList(284052);
+   //final result = rateRepository!.getIfMovieInWatchList(284052);
 
     // verify(mockRateLocalSource!.getIfMovieInWatchList(284052));
   });

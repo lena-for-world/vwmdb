@@ -1,5 +1,8 @@
+import 'package:hive/hive.dart';
+
 import '../../domain/entities/rate_entity.dart';
 
+@HiveType(typeId: 0)
 class RateModel {
 
   // TODO : store options?
@@ -11,11 +14,17 @@ class RateModel {
   // hive는 ?
   // 그리고 이런 데이터를 저장하기에 적합한 다른 옵션은????
 
+  @HiveField(0)
   int movieId;
+  @HiveField(1)
   String title;
+  @HiveField(2)
   String? poster;
+  @HiveField(3)
   int? stars;
+  @HiveField(4)
   bool? watchOrNot;
+  @HiveField(5)
   String? review;
 
   RateModel({

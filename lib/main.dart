@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vwmdb/rate/presentation/viewmodels/hive_box.dart';
 
 void main() async {
-  var path = Directory.current.path;
-  Hive.init(path);
-  HiveBox.box = await Hive.openBox('testBox');
   runApp(const MyApp());
+  Hive.initFlutter();
+  await Hive.openBox('myMovies');
 }
 
 class MyApp extends StatelessWidget {

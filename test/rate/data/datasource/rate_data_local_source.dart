@@ -11,29 +11,36 @@ import 'package:vwmdb/rate/presentation/viewmodels/hive_box.dart';
 void main() {
   RateRepository? rateRepository;
   RateLocalSourceImpl? rateLocalSourceImpl;
-  var path = Directory.current.path;
-  Hive.init(path);
+  var box;
 
   setUp(() async {
     // rateLocalSource = RateLocalSourceImpl();
     //mockRateLocalSourceImpl = MockRateLocalSourceImpl();
     rateLocalSourceImpl = RateLocalSourceImpl();
     rateRepository = RateRepositoryImpl(rateLocalSourceImpl!);
-    HiveBox.box = await Hive.openBox('testBox');
+    /*var hiveBox = HiveBox();
+    if(!hiveBox.IfBoxOpened()) {
+      box = hiveBox.OpenTheBox("testBox");
+    }
+    box = Hive.box("testBox");*/
+    var path = Directory.current.path;
+    Hive.init(path);
+    await Hive.openBox('testBox');
+    box = Hive.box("testBox");
   });
 
   test('시청 목록에 영화가 있는지 조회', () {
     int movieId = 284052;
-    if(!HiveBox.box.containsKey(284052)) {
+    if(!box.containsKey(284052)) {
       return false;
     }
     return true;
   });
 
-  test('시청 목록에 영화 등록', () {
+  test('시청 목록에 영화 등록되어 있으면 삭제, 등록 안 되어 있으면 추가', () {
     int movieId = 284052;
     // 가져오기
-    RateModel rateModel = RateModel.fromJson(json.decode(HiveBox.box.get(movieId)));
+    RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
     bool? beforeValue = rateModel.watchOrNot;
     // 변경
     if(rateModel.watchOrNot == null
@@ -44,11 +51,54 @@ void main() {
       rateModel.watchOrNot = false;
     }
     // 변경된 모델 저장
-    HiveBox.box.put(movieId, json.encode(rateModel));
+    box.put(movieId, json.encode(rateModel));
 
-    RateModel afterrateModel = RateModel.fromJson(json.decode(HiveBox.box.get(movieId)));
+    RateModel afterrateModel = RateModel.fromJson(json.decode(box.get(movieId)));
 
     print('${beforeValue} ${afterrateModel.watchOrNot}');
     expect(beforeValue != afterrateModel.watchOrNot, true);
+  });
+
+  test('영화에 내가 준 별점이 있는지 조회', () {
+    int movieId = 284052;
+    RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
+    if(rateModel.stars != null) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  test('영화에 내가 준 별점 조회', () {
+    int movieId = 284052;
+    RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
+    int? result = rateModel.stars;
+    print(result);
+  });
+
+  test('영화에 내가 준 별점 저장', () {
+    int movieId = 284052;
+    RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
+    rateModel.stars = 2;
+    box.put(movieId, json.encode(rateModel));
+
+    RateModel afterrateModel = RateModel.fromJson(json.decode(box.get(movieId)));
+
+    print('${afterrateModel.stars}');
+    expect(afterrateModel.stars, equals(2));
+  });
+
+  test('영화에 내가 준 별점 삭제', () {
+    int movieId = 284052;
+    RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
+
+    var beforeValue = rateModel.stars;
+    rateModel.stars = null;
+    box.put(movieId, json.encode(rateModel));
+
+    RateModel afterrateModel = RateModel.fromJson(json.decode(box.get(movieId)));
+
+    print('${beforeValue} ${afterrateModel.stars}');
+    expect(afterrateModel.stars, equals(null));
   });
 }
