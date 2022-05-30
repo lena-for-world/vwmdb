@@ -33,14 +33,14 @@ class LatestMovieRepositoryImpl implements MovieRepository, LatestMovieRepositor
   }
 
   @override
-  Future<Movie> getSingleMovieDetail(int) {
-    // TODO: implement getSingleMovieDetail
-    throw UnimplementedError();
+  String getTrailerUrl(List<dynamic> trailerJson) {
+    return latestMovieRemoteDataSource.getTrailerUrl(trailerJson);
   }
 
   @override
-  String getTrailerUrl(List<dynamic> trailerJson) {
-    return latestMovieRemoteDataSource.getTrailerUrl(trailerJson);
+  Future<Movie> getSingleMovieDetail(int) {
+    // TODO: implement getSingleMovieDetail
+    throw UnimplementedError();
   }
 
 }

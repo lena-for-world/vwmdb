@@ -17,7 +17,7 @@ class RateModel {
   @HiveField(0)
   int movieId;
   @HiveField(1)
-  String title;
+  String? title;
   @HiveField(2)
   String? poster;
   @HiveField(3)
@@ -29,7 +29,7 @@ class RateModel {
 
   RateModel({
     required this.movieId,
-    required this.title,
+    this.title,
     this.poster,
     this.stars,
     this.watchOrNot,
@@ -39,7 +39,7 @@ class RateModel {
   factory RateModel.fromJson(Map<String, dynamic> rateJson) {
     return RateModel(
       movieId: rateJson['movieId'],
-      title: rateJson['title'],
+      title: rateJson['title'] ?? null,
       poster: rateJson['poster'] ?? null,
       stars: rateJson['stars'] ?? null,
       watchOrNot: rateJson['watchOrNot'] ?? null,
@@ -49,7 +49,7 @@ class RateModel {
 
   Map<String, dynamic> toJson() => {
     'movieId': movieId,
-    'title' : title,
+    'title' : title ?? null,
     'poster': poster ?? null,
     'stars' : stars ?? null,
     'watchOrNot': watchOrNot ?? null,

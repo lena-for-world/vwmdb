@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vwmdb/rate/presentation/viewmodels/hive_box.dart';
 
+globalInitialzier() async {
+
+}
+
 void main() async {
+  // await globalInitializer();
   runApp(const MyApp());
-  Hive.initFlutter();
-  await Hive.openBox('myMovies');
 }
 
 class MyApp extends StatelessWidget {

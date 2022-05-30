@@ -16,17 +16,17 @@ void main() {
   setUp(() async {
     // rateLocalSource = RateLocalSourceImpl();
     //mockRateLocalSourceImpl = MockRateLocalSourceImpl();
-    rateLocalSourceImpl = RateLocalSourceImpl();
+    var path = Directory.current.path;
+    Hive.init(path);
+    await Hive.openBox('testBox');
+    box = Hive.box("testBox");
+    rateLocalSourceImpl = RateLocalSourceImpl(box);
     rateRepository = RateRepositoryImpl(rateLocalSourceImpl!);
     /*var hiveBox = HiveBox();
     if(!hiveBox.IfBoxOpened()) {
       box = hiveBox.OpenTheBox("testBox");
     }
     box = Hive.box("testBox");*/
-    var path = Directory.current.path;
-    Hive.init(path);
-    await Hive.openBox('testBox');
-    box = Hive.box("testBox");
   });
 
   test('시청 목록에 영화가 있는지 조회', () {
