@@ -34,19 +34,23 @@ class MyWidget extends StatelessWidget {
         children: <Widget> [
           Row(
             children: <Widget> [
-              TextButton(
-                child: Container(
-                  width: 100, height: 100,
-                  child: Align(alignment: Alignment.center, child: Text('내 리뷰'),),
+              Expanded (
+                child: TextButton(
+                  child: Container(
+                    width: 100, height: 100,
+                    child: Align(alignment: Alignment.center, child: Text('내 리뷰'),),
+                  ),
+                  onPressed: () {},
                 ),
-                onPressed: () {},
               ),
-              TextButton(
-                child: Container(
-                  width: 100, height: 100,
-                  child: Align(alignment: Alignment.center, child: Text('내 리뷰'),),
+              Expanded (
+                child: TextButton(
+                  child: Container(
+                    width: 100, height: 100,
+                    child: Align(alignment: Alignment.center, child: Text('내 리뷰'),),
+                  ),
+                  onPressed: () {},
                 ),
-                onPressed: () {},
               ),
             ],
           ),
