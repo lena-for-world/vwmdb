@@ -18,10 +18,11 @@ class NoonLoopingDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
             options: CarouselOptions(
-              aspectRatio: 2.0,
+              aspectRatio: 4.0,
               enlargeCenterPage: true,
               enableInfiniteScroll: false,
               initialPage: 2,
+              viewportFraction: 1,
               autoPlay: true,
             ),
             items: imageSliders,
@@ -36,44 +37,73 @@ class ImageSliderWidgets {
   List<Widget> makeImageSliderWidgets() {
     return imgList.map((item) => Container(
       child: Container(
+        width: 1200,
         margin: EdgeInsets.all(5.0),
         child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            child: Stack(
-              children: <Widget>[
-                Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(200, 0, 0, 0),
-                          Color.fromARGB(0, 0, 0, 0)
-                        ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 20.0),
-                    child: /*Text(
-                      'No. ${imgList.indexOf(item)} image',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),*/
-                      TextButton(
-                        onPressed: (){ print('title ${imgList.indexOf(item)}');},
-                        child: Text('title ${imgList.indexOf(item)}'),
-                      ),
+            child: InkWell( // 누르면 영화 상세 페이지로 이동
+              splashColor: Colors.white,
+              highlightColor: Colors.black,
+              child: Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: TextButton( // 누르면 트레일러 다이얼로그 팝업
+                      child: Image.network('https://image.tmdb.org/t/p/w500/bm7UlW3ctMJAvD6NNXrCDdRyyKn.jpg'),
+                      onPressed: (){print('latest trailer button');},
                     ),
                   ),
-              ],
-            )),
+                  Positioned(
+                    left: 20,
+                    bottom: 30,
+                    child: Row(
+                      children: [
+                        Image.network(item, fit: BoxFit.fill, width: 180.0, height: 240),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('title'),
+                            Text('runnintime'),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    top: 140,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(200, 0, 0, 0),
+                            Color.fromARGB(0, 0, 0, 0)
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 20.0),
+                      child: /*Text(
+                        'No. ${imgList.indexOf(item)} image',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),*/
+                        TextButton(
+                          onPressed: (){ print('title ${imgList.indexOf(item)}');},
+                          child: Text('title ${imgList.indexOf(item)}'),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              onTap: (){print('latest');},
+            ),
+        ),
       ),
     ))
         .toList();

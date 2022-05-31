@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vwmdb/movie/data/datasources/latest_movie_remote_sources.dart';
-import 'package:vwmdb/movie/data/repositories/latest_movie_repository.dart';
-import 'package:vwmdb/movie/domain/usecases/latest_movie_usecase.dart';
 import '../carousel.dart';
 
 void main() {
@@ -79,10 +76,4 @@ class BoxOfficeListView extends StatelessWidget {
       ],
     );
   }
-}
-
-class LatestMoviesViewModel {
-  LatestMovieRemoteDataSource latestMovieRemoteDataSource = LatestMovieRemoteDataSourceImpl();
-  //LatestMovieRepository latestMovieRepository = LatestMovieRepositoryImpl(latestMovieRemoteDataSource);
-  //LatestMovieUsecase latestMovieUsecase = LatestMovieUsecase(latestMovieRepository);
 }
