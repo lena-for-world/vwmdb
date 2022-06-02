@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,14 +12,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child: MyWidget(),
+          child: MyPageView(),
         ),
       ),
     );
   }
 }
 
-class MyWidget extends StatelessWidget {
+class MyPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

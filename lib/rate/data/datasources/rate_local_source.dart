@@ -7,10 +7,11 @@ import 'package:vwmdb/rate/presentation/viewmodels/hive_box.dart';
 import '../models/rate_model.dart';
 
 abstract class RateLocalSource {
-  bool getIfMovieInWatchList(int movieId);
+  bool getIfMovieInLocalStore(int movieId);
   void postCheckOrUncheckMovieInWatchList(int movieId);
   bool getIfMovieRated(int moviedId);
   int getMovieRated(int movieId);
+  bool getIfInWatchList(int movieId);
   void postMovieRating(int movieId, int rating);
   void deleteMovieRated(int movieId);
 }
@@ -22,10 +23,9 @@ class RateLocalSourceImpl implements RateLocalSource {
   RateLocalSourceImpl(this.box);
 
   @override
-  bool getIfMovieInWatchList(int movieId) {
-    // TODO : getIfmovieinwatchlist
-    box = Hive.box('myMovies');
-    if(!box.containsKey(284052)) {
+  bool getIfMovieInLocalStore(int movieId) {
+    // TODO : getIfmovieinwatchlist -- key 유무만 확인하고 있으므로 이걸로 시청 목록 존재여부를 파악할 수는 없음
+    if(!box.containsKey(movieId)) {
       return false;
     }
     return true;
@@ -70,6 +70,16 @@ class RateLocalSourceImpl implements RateLocalSource {
     RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
     rateModel.stars = rating;
     box.put(movieId, json.encode(rateModel));
+  }
+
+  @override
+  bool getIfInWatchList(int movieId) {
+    RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
+    if(rateModel.watchOrNot == null || rateModel.watchOrNot == false) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }

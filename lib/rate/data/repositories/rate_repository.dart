@@ -1,9 +1,10 @@
 import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
 
 abstract class RateRepository {
-  bool getIfMovieInWatchList(int movieId);
+  bool getIfMovieInLocalStore(int movieId);
   void postCheckOrUncheckMovieInWatchList(int movieId);
   bool getIfMovieRated(int moviedId);
+  bool getIfInWatchList(int movieId);
   int getMovieRated(int movieId);
   void postMovieRating(int movieId, int rating);
   void deleteMovieRated(int movieId);
@@ -15,8 +16,8 @@ class RateRepositoryImpl implements RateRepository {
   RateRepositoryImpl(this.rateLocalSource);
 
   @override
-  bool getIfMovieInWatchList(int movieId) {
-    return rateLocalSource.getIfMovieInWatchList(movieId);
+  bool getIfMovieInLocalStore(int movieId) {
+    return rateLocalSource.getIfMovieInLocalStore(movieId);
   }
 
   @override
@@ -42,5 +43,10 @@ class RateRepositoryImpl implements RateRepository {
   @override
   void postMovieRating(int movieId, int rating) {
     rateLocalSource.postMovieRating(movieId, rating);
+  }
+
+  @override
+  bool getIfInWatchList(int movieId) {
+    return rateLocalSource.getIfInWatchList(movieId);
   }
 }

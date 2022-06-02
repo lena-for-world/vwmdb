@@ -26,7 +26,12 @@ class RateUsecase {
   }
 
   bool getIfMovieInWatchList(int movieId) {
-    return rateRepository.getIfMovieInWatchList(movieId);
+    // 영화가 리뷰가 있어서든, 별점을 매겼기 때문이든 저장되어 있긴 한 상태이므로
+    // 시청목록에 추가가 되었는지도 확인이 필요
+    bool inLocalStore = rateRepository.getIfMovieInLocalStore(movieId);
+    if(inLocalStore == false)
+      return false;
+    return rateRepository.getIfInWatchList(movieId);
   }
 
 }
