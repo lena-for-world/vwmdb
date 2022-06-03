@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vwmdb/movie/data/models/boxoffice_movie_model.dart';
-결import 'package:vwmdb/rating_bar_widget.dart';
+import 'package:vwmdb/rating_bar_widget.dart';
 import 'package:vwmdb/v_main_page.dart';
 
 import 'movie/data/models/single_movie_model.dart';
