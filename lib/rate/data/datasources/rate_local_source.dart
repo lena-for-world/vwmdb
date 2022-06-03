@@ -15,6 +15,7 @@ abstract class RateLocalSource {
   void postMovieRating(int movieId, double rating);
   void deleteMovieRated(int movieId);
   void saveMovieIn(int movieId);
+  Iterable<dynamic> getAllMovieKeys();
 }
 
 class RateLocalSourceImpl implements RateLocalSource {
@@ -25,7 +26,6 @@ class RateLocalSourceImpl implements RateLocalSource {
 
   @override
   bool getIfMovieInLocalStore(int movieId) {
-    // TODO : getIfmovieinwatchlist -- key 유무만 확인하고 있으므로 이걸로 시청 목록 존재여부를 파악할 수는 없음
     if(!box.containsKey(movieId)) {
       return false;
     }
@@ -87,6 +87,11 @@ class RateLocalSourceImpl implements RateLocalSource {
   void saveMovieIn(int movieId) {
     RateModel rateModel = RateModel(movieId: movieId);
     box.put(movieId, json.encode(rateModel));
+  }
+
+  @override
+  Iterable<dynamic> getAllMovieKeys() {
+    return box.keys;
   }
 
 }

@@ -6,7 +6,6 @@ import 'package:hive/hive.dart';
 import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
 import 'package:vwmdb/rate/data/models/rate_model.dart';
 import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
-import 'package:vwmdb/rate/presentation/viewmodels/hive_box.dart';
 
 void main() {
   RateRepository? rateRepository;
@@ -99,6 +98,11 @@ void main() {
     RateModel afterrateModel = RateModel.fromJson(json.decode(box.get(movieId)));
 
     print('${beforeValue} ${afterrateModel.stars}');
+    box.keys.forEach((data) => print(data));
     expect(afterrateModel.stars, equals(null));
+  });
+
+  test('iterable key들을 모두 가져올 수 있는지', () {
+    box.keys.forEach((data) => print(data));
   });
 }

@@ -42,4 +42,15 @@ class RateUsecase {
       rateRepository.saveMovieIn(movieId);
     }
   }
+
+  List<int> checkAllMoviesIfInWatchList() {
+    List<int> isInWatchLists = [];
+    rateRepository.getAllMovieKeys().forEach((element) {
+      print(element);
+      if(getIfMovieInWatchList(element)) {
+        isInWatchLists.add(element);
+      }
+    });
+    return isInWatchLists;
+  }
 }

@@ -9,6 +9,7 @@ abstract class RateRepository {
   void postMovieRating(int movieId, double rating);
   void deleteMovieRated(int movieId);
   void saveMovieIn(int movieId);
+  Iterable<dynamic> getAllMovieKeys();
 }
 
 class RateRepositoryImpl implements RateRepository {
@@ -54,5 +55,10 @@ class RateRepositoryImpl implements RateRepository {
   @override
   void saveMovieIn(int movieId) {
     rateLocalSource.saveMovieIn(movieId);
+  }
+
+  @override
+  Iterable getAllMovieKeys() {
+    return rateLocalSource.getAllMovieKeys();
   }
 }
