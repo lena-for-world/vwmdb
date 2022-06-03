@@ -5,16 +5,9 @@ import 'package:hive/hive.dart';
 import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
 import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
 import 'package:vwmdb/rate/domain/usecases/rate_usecase.dart';
+import 'package:vwmdb/v_main_page.dart';
 
 final starStateProvider = StateProvider<bool>((ref) => true);
-
-final rateProvider = Provider<RateUsecase>((ref) {
-  RateLocalSource rateLocalSource = RateLocalSourceImpl(Hive.box('myMovies'));
-  RateRepository rateRepository = RateRepositoryImpl(rateLocalSource);
-  RateUsecase rateUsecase = RateUsecase(rateRepository);
-  return rateUsecase;
-});
-
 
 class StarsButton extends ConsumerWidget {
 

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vwmdb/boxoffice_movie_view.dart';
 import 'package:vwmdb/movie/data/datasources/single_movie_remote_data_source.dart';
 import 'package:vwmdb/movie/data/models/single_movie_model.dart';
 import 'package:vwmdb/movie/data/repositories/single_movie_repository.dart';
 import 'package:vwmdb/movie/domain/usecases/single_movie_usecase.dart';
 import 'package:vwmdb/rating_bar_widget.dart';
+import 'package:vwmdb/v_main_page.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
@@ -45,14 +47,18 @@ class SingleMoviePage extends ConsumerWidget {
   }
 }
 
-class SingleMoviePageDetail extends StatelessWidget {
+class SingleMoviePageDetail extends ConsumerWidget {
 
   SingleMovieModel singleMovie;
 
   SingleMoviePageDetail(this.singleMovie);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(starStateProvider);
+    ref.watch(checkInWatchListStateProvider);
+    double? movieRatedByMe = ref.watch(rateProvider).getMovieRated(singleMovie.movieId);
+    bool ifInWatchList = ref.read(rateProvider).getIfMovieInWatchList(singleMovie.movieId);
     return Container(
       width: 1000,
       child: Column(
@@ -99,10 +105,14 @@ class SingleMoviePageDetail extends StatelessWidget {
                 children: <Widget> [
                   Icon(Icons.add, size: 16),
                   SizedBox(width: 10),
-                  Text('시청목록에 추가'),
+                  ifInWatchList ? Text('시청목록에서 삭제') : Text('시청목록에 추가'),
                 ],
               ),
-              onPressed: () {print('시청목록에 추가');},
+              onPressed: () {
+                ref.read(rateProvider).saveMovieIfNotInLocalStore(singleMovie.movieId);
+                ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(singleMovie.movieId);
+                ref.read(checkInWatchListStateProvider.state).state++;
+              },
             ),
           ),
           Row(
@@ -119,7 +129,7 @@ class SingleMoviePageDetail extends StatelessWidget {
               Column(
                 children: [
                   StarsButton(singleMovie.movieId),
-                  Text('7.4/10'),
+                  movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2} / 10'),
                   Text('rating by me'),
                 ],
               ),

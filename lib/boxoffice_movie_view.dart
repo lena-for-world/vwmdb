@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vwmdb/movie/data/models/boxoffice_movie_model.dart';
+결import 'package:vwmdb/rating_bar_widget.dart';
 import 'package:vwmdb/v_main_page.dart';
 
+import 'movie/data/models/single_movie_model.dart';
 import 'movie_detail_page.dart';
 
 // 한 아이템 당 하나의 프로바이더가 적용되는가? => ㄴㄴ ㅋㅋ
@@ -24,7 +26,15 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-//    checkedIfInWatchList = ref.watch(checkInWatchListStateProvider);
+
+    ref.watch(starStateProvider);
+    AsyncValue<SingleMovieModel> movieRatedByOthersModel = ref.watch(singleMovieProvider(boxofficeMovieModel.movieId));
+    double movieRatedByOthers = movieRatedByOthersModel.when(
+      data: (data) => data.voteAverage,
+      loading: () => 0.0,
+      error: (err, stack) => 0,
+    );
+    double? movieRatedByMe = ref.watch(rateProvider).getMovieRated(boxofficeMovieModel.movieId);
     return InkWell( // 누르면 영화 상세 페이지로 이동
     splashColor: Colors.white,
     highlightColor: Colors.black,
@@ -63,9 +73,9 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget> [
                   Icon(Icons.star),
-                  Text('stars'),
-                  Icon(Icons.star_border),
-                  Text('stars'),
+                  Text('${movieRatedByOthers}'),
+                  movieRatedByMe == null ? Text('') : Icon(Icons.star),
+                  movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2}'),
                 ]
             ),
             Text('${boxofficeMovieModel.title}'),

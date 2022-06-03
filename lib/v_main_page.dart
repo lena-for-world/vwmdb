@@ -27,19 +27,6 @@ final rateProvider = Provider<RateUsecase>((ref) {
   return rateUsecase;
 });
 
-/*
-final watchListStateNotifierProvider = StateNotifierProvider<WatchListNotifier, List<BoxOfficeMovieListItem>>
-  ((ref) => watchListNotifier());
-
-class WatchListNotifier extends StateNotifier<List<BoxOfficeMovieListItem>> {
-  WatchListNotifier(List<BoxOfficeMovieListItem> state) : super(state);
-
-  void toggle(int movieId) {
-    state =
-  }
-
-}*/
-
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
