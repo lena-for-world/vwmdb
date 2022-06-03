@@ -8,6 +8,7 @@ abstract class RateRepository {
   int getMovieRated(int movieId);
   void postMovieRating(int movieId, int rating);
   void deleteMovieRated(int movieId);
+  void saveMovieIn(int movieId);
 }
 
 class RateRepositoryImpl implements RateRepository {
@@ -48,5 +49,10 @@ class RateRepositoryImpl implements RateRepository {
   @override
   bool getIfInWatchList(int movieId) {
     return rateLocalSource.getIfInWatchList(movieId);
+  }
+
+  @override
+  void saveMovieIn(int movieId) {
+    rateLocalSource.saveMovieIn(movieId);
   }
 }

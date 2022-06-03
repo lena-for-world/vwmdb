@@ -7,6 +7,7 @@ import 'package:vwmdb/movie/data/models/latest_movie_model.dart';
 import 'package:vwmdb/movie/data/repositories/latest_movie_repository.dart';
 
 import 'movie/domain/usecases/latest_movie_usecase.dart';
+import 'movie_detail_page.dart';
 
 final latestMoviesProvider = FutureProvider<List<LatestMovieModel>> ((ref) async {
   LatestMovieRemoteDataSource latestMovieRemoteDataSource = LatestMovieRemoteDataSourceImpl();
@@ -31,7 +32,7 @@ class LatestMovieView extends ConsumerWidget {
               viewportFraction: 1,
               autoPlay: true,
             ),
-            items: ImageSliderWidgets(latestMovieModelList).makeImageSliderWidgets(),
+            items: ImageSliderWidgets(latestMovieModelList, context).makeImageSliderWidgets(),
 
     );
   }
@@ -39,21 +40,23 @@ class LatestMovieView extends ConsumerWidget {
 
 class ImageSliderWidgets {
   AsyncValue<List<LatestMovieModel>> latestMovieModelList;
-  ImageSliderWidgets(this.latestMovieModelList);
+  BuildContext context;
+
+  ImageSliderWidgets(this.latestMovieModelList, this.context);
 
   List<String> imgList=[];
 
   List<Widget> makeImageSliderWidgets() {
     return latestMovieModelList.when(
       data: (data) {
-        return makeLatestMovieWidgets(data);
+        return makeLatestMovieWidgets(data, context);
       },
       loading: () => [CircularProgressIndicator()],
       error: (err, stack) => [Text('error')],
     );
   }
 
-  List<Widget> makeLatestMovieWidgets(List<LatestMovieModel> movieModels) {
+  List<Widget> makeLatestMovieWidgets(List<LatestMovieModel> movieModels, BuildContext context) {
     return movieModels.map((item) => Container(
       child: Container(
         width: 1200,
@@ -67,7 +70,7 @@ class ImageSliderWidgets {
                 Align(
                   alignment: Alignment.topCenter,
                   child: TextButton( // 누르면 트레일러 다이얼로그 팝업
-                    child: Image.network('https://image.tmdb.org/t/p/w500/${item.poster}'),
+                    child: Image.network('https://image.tmdb.org/t/p/w500${item.poster}'),
                     onPressed: (){print('latest trailer button');},
                   ),
                 ),
@@ -76,7 +79,7 @@ class ImageSliderWidgets {
                   bottom: 30,
                   child: Row(
                     children: [
-                      Image.network('https://image.tmdb.org/t/p/w500/${item.poster}', fit: BoxFit.fill, width: 180.0, height: 240),
+                      Image.network('https://image.tmdb.org/t/p/w500${item.poster}', fit: BoxFit.fill, width: 180.0, height: 240),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -124,6 +127,11 @@ class ImageSliderWidgets {
             ),
             onTap: () {
               print('// SingleMoviePage item.movieId로 이동');
+              // navigation 적용
+              Navigator.of(context).push(MaterialPageRoute(builder:
+                (context) => SingleMoviePage(item.movieId)
+                )
+              );
               },
           ),
         ),

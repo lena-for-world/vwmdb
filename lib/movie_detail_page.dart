@@ -1,30 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vwmdb/movie/data/datasources/single_movie_remote_data_source.dart';
+import 'package:vwmdb/movie/data/models/single_movie_model.dart';
+import 'package:vwmdb/movie/data/repositories/single_movie_repository.dart';
+import 'package:vwmdb/movie/domain/usecases/single_movie_usecase.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
-void main() {
-  runApp(MyApp());
-}
+final singleMovieProvider = FutureProvider.family<SingleMovieModel, int> ((ref, movieId) async {
+  SingleMovieRemoteDataSource singleMovieRemoteDataSource = SingleMovieRemoteDataSourceImpl();
+  SingleMovieRepository singleMovieRepository = SingleMovieRepositoryImpl(singleMovieRemoteDataSource);
+  final singleMovie = await SingleMovieUsecase(singleMovieRepository).getSingleMovieDetail(movieId);
+  return singleMovie;
+});
 
-class MyApp extends StatelessWidget {
+class SingleMoviePage extends ConsumerWidget {
+
+  final int movieId;
+
+  SingleMoviePage(this.movieId);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: darkBlue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(title: Text('Title')),
-        body: Center(
-          child: MyWidget(),
-        ),
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    AsyncValue<SingleMovieModel> singleMovieModel = ref.watch(singleMovieProvider(movieId));
+    return singleMovieModel.when(
+      data: (data) {
+        return MaterialApp(
+          theme: ThemeData.dark().copyWith(
+            scaffoldBackgroundColor: darkBlue,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            appBar: AppBar(title: Text('Title')),
+            body: Center(
+              child: SingleMoviePageDetail(data),
+            ),
+          ),
+        );
+      },
+      loading: () => CircularProgressIndicator(),
+    error: (err, stack) => Text('${err}'),
     );
   }
 }
 
-class MyWidget extends StatelessWidget {
+class SingleMoviePageDetail extends StatelessWidget {
+
+  SingleMovieModel singleMovie;
+
+  SingleMoviePageDetail(this.singleMovie);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,12 +60,12 @@ class MyWidget extends StatelessWidget {
         children: <Widget> [
           Container(
             padding: EdgeInsets.only(left: 20, top: 30, bottom: 30,),
-            child: Text('title'),
+            child: Text('${singleMovie.title}'),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget> [
-              Text('year'), Text('age'), Text('runningtime'),
+              Text('${singleMovie.year}'), Text('age'), Text('${singleMovie.runtime} minutes'),
             ],
           ),
           Row(
@@ -50,7 +75,7 @@ class MyWidget extends StatelessWidget {
                 height: 240,
                 child: FittedBox(
                   fit: BoxFit.fill,
-                  child: Image.network('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+                  child: Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}'),
                 ),
 
                 padding: EdgeInsets.only(left: 20, right: 30, bottom: 10, top: 40),
@@ -59,9 +84,9 @@ class MyWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget> [
-                  Text('genre'),
+                  Text('${singleMovie.genres}'),
                   SizedBox(height: 20),
-                  Text('content'),
+                  Text('${singleMovie.overview}'),
                 ],
               ),
             ],
@@ -85,7 +110,7 @@ class MyWidget extends StatelessWidget {
               Column(
                 children: [
                   Icon(Icons.favorite),
-                  Text('7.4/10'),
+                  Text('${singleMovie.voteAverage} / ${singleMovie.voteCount}'),
                   Text('rating by others'),
                 ],
               ),

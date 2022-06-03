@@ -34,4 +34,10 @@ class RateUsecase {
     return rateRepository.getIfInWatchList(movieId);
   }
 
+  void saveMovieIfNotInLocalStore(int movieId) {
+    bool inLocalStore = rateRepository.getIfMovieInLocalStore(movieId);
+    if(!inLocalStore) {
+      rateRepository.saveMovieIn(movieId);
+    }
+  }
 }

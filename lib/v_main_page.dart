@@ -13,6 +13,7 @@ import 'movie/data/repositories/boxoffice_movie_repository.dart';
 import 'movie/domain/usecases/boxoffice_movie_usecase.dart';
 
 final boxofficeMoviesProvider = FutureProvider<List<BoxofficeMovieModel>> ((ref) async {
+  ref.watch(checkInWatchListStateProvider);
   BoxofficeMovieRemoteDataSource boxofficeMovieRemoteDataSource = BoxofficeMovieRemoteDataSourceImpl();
   BoxofficeMovieRepository boxofficeMovieRepository = BoxofficeMovieRepositoryImpl(boxofficeMovieRemoteDataSource);
   final boxofficeMoviesList = await BoxofficeMovieUsecase(boxofficeMovieRepository).getBoxofficeMovies();
@@ -25,6 +26,19 @@ final rateProvider = Provider<RateUsecase>((ref) {
   RateUsecase rateUsecase = RateUsecase(rateRepository);
   return rateUsecase;
 });
+
+/*
+final watchListStateNotifierProvider = StateNotifierProvider<WatchListNotifier, List<BoxOfficeMovieListItem>>
+  ((ref) => watchListNotifier());
+
+class WatchListNotifier extends StateNotifier<List<BoxOfficeMovieListItem>> {
+  WatchListNotifier(List<BoxOfficeMovieListItem> state) : super(state);
+
+  void toggle(int movieId) {
+    state =
+  }
+
+}*/
 
 class MainPage extends StatelessWidget {
   @override

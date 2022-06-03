@@ -14,6 +14,7 @@ abstract class RateLocalSource {
   bool getIfInWatchList(int movieId);
   void postMovieRating(int movieId, int rating);
   void deleteMovieRated(int movieId);
+  void saveMovieIn(int movieId);
 }
 
 class RateLocalSourceImpl implements RateLocalSource {
@@ -80,6 +81,12 @@ class RateLocalSourceImpl implements RateLocalSource {
     } else {
       return true;
     }
+  }
+
+  @override
+  void saveMovieIn(int movieId) {
+    RateModel rateModel = RateModel(movieId: movieId);
+    box.put(movieId, json.encode(rateModel));
   }
 
 }
