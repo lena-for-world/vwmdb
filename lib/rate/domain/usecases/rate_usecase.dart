@@ -13,11 +13,13 @@ class RateUsecase {
     rateRepository.deleteMovieRated(movieId);
   }
 
-  void postMovieRating(int movieId, int rating) {
+  void postMovieRating(int movieId, double rating) {
     rateRepository.postMovieRating(movieId, rating);
   }
 
-  int? getMovieRated(int movieId) {
+  double? getMovieRated(int movieId) {
+    if(!rateRepository.getIfMovieInLocalStore(movieId))
+      return null;
     if(rateRepository.getIfMovieRated(movieId)) {
       return rateRepository.getMovieRated(movieId);
     } else {

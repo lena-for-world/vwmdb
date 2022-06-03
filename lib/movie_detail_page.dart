@@ -4,6 +4,7 @@ import 'package:vwmdb/movie/data/datasources/single_movie_remote_data_source.dar
 import 'package:vwmdb/movie/data/models/single_movie_model.dart';
 import 'package:vwmdb/movie/data/repositories/single_movie_repository.dart';
 import 'package:vwmdb/movie/domain/usecases/single_movie_usecase.dart';
+import 'package:vwmdb/rating_bar_widget.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
@@ -117,7 +118,7 @@ class SingleMoviePageDetail extends StatelessWidget {
               SizedBox(width: 30),
               Column(
                 children: [
-                  Icon(Icons.favorite),
+                  StarsButton(singleMovie.movieId),
                   Text('7.4/10'),
                   Text('rating by me'),
                 ],

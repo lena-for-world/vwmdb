@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vwmdb/movie/data/models/boxoffice_movie_model.dart';
 import 'package:vwmdb/v_main_page.dart';
 
+import 'movie_detail_page.dart';
+
 // 한 아이템 당 하나의 프로바이더가 적용되는가? => ㄴㄴ ㅋㅋ
 // family 사용은 좋은 대안이 아닌 듯함
 // 기본값이 true로 설정되는가? => 그렇다면 어떻게 할 지 고민하기...? 고민필요한가?  ==> ㅋㅋ ㅇㅇ
@@ -23,7 +25,10 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 //    checkedIfInWatchList = ref.watch(checkInWatchListStateProvider);
-    return Container(
+    return InkWell( // 누르면 영화 상세 페이지로 이동
+    splashColor: Colors.white,
+    highlightColor: Colors.black,
+    child:Container(
       height: 300,
       width: 170,
       color: Colors.grey,
@@ -66,6 +71,12 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
             Text('${boxofficeMovieModel.title}'),
           ]
       ),
+    ), onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder:
+          (context) => SingleMoviePage(boxofficeMovieModel.movieId)
+        )
+      );
+    }
     );
   }
 }

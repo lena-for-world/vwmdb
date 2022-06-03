@@ -72,7 +72,7 @@ void main() {
   test('영화에 내가 준 별점 조회', () {
     int movieId = 284052;
     RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
-    int? result = rateModel.stars;
+    double? result = rateModel.stars;
     print(result);
   });
 

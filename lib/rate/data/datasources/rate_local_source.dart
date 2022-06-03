@@ -10,9 +10,9 @@ abstract class RateLocalSource {
   bool getIfMovieInLocalStore(int movieId);
   void postCheckOrUncheckMovieInWatchList(int movieId);
   bool getIfMovieRated(int moviedId);
-  int getMovieRated(int movieId);
+  double getMovieRated(int movieId);
   bool getIfInWatchList(int movieId);
-  void postMovieRating(int movieId, int rating);
+  void postMovieRating(int movieId, double rating);
   void deleteMovieRated(int movieId);
   void saveMovieIn(int movieId);
 }
@@ -50,7 +50,7 @@ class RateLocalSourceImpl implements RateLocalSource {
   }
 
   @override
-  int getMovieRated(int movieId) {
+  double getMovieRated(int movieId) {
     RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
     return rateModel.stars!;
   }
@@ -67,7 +67,7 @@ class RateLocalSourceImpl implements RateLocalSource {
   }
 
   @override
-  void postMovieRating(int movieId, int rating) {
+  void postMovieRating(int movieId, double rating) {
     RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
     rateModel.stars = rating;
     box.put(movieId, json.encode(rateModel));

@@ -12,7 +12,7 @@ class RateModel {
   @HiveField(2)
   String? poster;
   @HiveField(3)
-  int? stars;
+  double? stars;
   @HiveField(4)
   bool? watchOrNot;
   @HiveField(5)

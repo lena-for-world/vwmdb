@@ -5,8 +5,8 @@ abstract class RateRepository {
   void postCheckOrUncheckMovieInWatchList(int movieId);
   bool getIfMovieRated(int moviedId);
   bool getIfInWatchList(int movieId);
-  int getMovieRated(int movieId);
-  void postMovieRating(int movieId, int rating);
+  double getMovieRated(int movieId);
+  void postMovieRating(int movieId, double rating);
   void deleteMovieRated(int movieId);
   void saveMovieIn(int movieId);
 }
@@ -32,7 +32,7 @@ class RateRepositoryImpl implements RateRepository {
   }
 
   @override
-  int getMovieRated(int movieId) {
+  double getMovieRated(int movieId) {
     return rateLocalSource.getMovieRated(movieId);
   }
 
@@ -42,7 +42,7 @@ class RateRepositoryImpl implements RateRepository {
   }
 
   @override
-  void postMovieRating(int movieId, int rating) {
+  void postMovieRating(int movieId, double rating) {
     rateLocalSource.postMovieRating(movieId, rating);
   }
 
