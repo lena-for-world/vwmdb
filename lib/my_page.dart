@@ -81,7 +81,11 @@ class MyPageView extends StatelessWidget {
             ],
           ),
           SizedBox(height: 50),
-          Text('나중에 볼 영화들'),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child:
+            Text('나중에 볼 영화들'),
+          ),
           SizedBox(height: 20),
           Container(height: 300, child: WatchListView(),),
         ],

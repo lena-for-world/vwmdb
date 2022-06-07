@@ -26,6 +26,7 @@ class Home extends StatelessWidget {
     return const MaterialApp(
       title: _title,
       home: HomeWidget(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -60,7 +61,8 @@ class _HomeWidget extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

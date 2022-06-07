@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vwmdb/movie/data/models/boxoffice_movie_model.dart';
 import 'package:vwmdb/rating_bar_widget.dart';
 import 'package:vwmdb/v_main_page.dart';
@@ -41,7 +42,10 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
     child:Container(
       height: 300,
       width: 170,
-      color: Colors.grey,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.grey[800],
+      ),
       child: Column(
           children: <Widget> [
             Stack(
@@ -51,7 +55,9 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
                   width: 170,
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Image.network('https://image.tmdb.org/t/p/w500${boxofficeMovieModel.poster}'),
+                    child: ClipRect(
+                     child: Image.network('https://image.tmdb.org/t/p/w500${boxofficeMovieModel.poster}'),
+                    )
                   ),
                   padding: EdgeInsets.all(10),
                 ),
@@ -73,12 +79,22 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget> [
                   Icon(Icons.star),
-                  Text('${movieRatedByOthers}'),
+                  Text(
+                      '${movieRatedByOthers}',
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize:13,
+                      )
+                  ),
                   movieRatedByMe == null ? Text('') : Icon(Icons.star),
                   movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2}'),
                 ]
             ),
-            Text('${boxofficeMovieModel.title}'),
+            Text(
+                '${boxofficeMovieModel.title}',
+                style: GoogleFonts.playfairDisplay(
+                  fontSize:13,
+                )
+            ),
           ]
       ),
     ), onTap: (){
