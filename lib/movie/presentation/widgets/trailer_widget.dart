@@ -1,38 +1,48 @@
-// Copyright 2020 Sarbagya Dhaubanjar. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vwmdb/movie/presentation/viewmodels/movie_viewmodel.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(YoutubeApp());
-}
+class YoutubeApp extends ConsumerWidget {
 
-///
-class YoutubeApp extends StatelessWidget {
+  int movieId;
+
+  YoutubeApp(this.movieId);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Youtube Player IFrame Demo',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.deepPurple,
-        scaffoldBackgroundColor: Colors.black,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: YoutubeAppDemo(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    AsyncValue<String> asyncTrailerId = ref.watch(trailerIdProvider(movieId));
+    return asyncTrailerId.when(
+      data: (data) {
+        print(data);
+        return MaterialApp(
+          title: 'Youtube Player IFrame Demo',
+          theme: ThemeData(
+            brightness: Brightness.dark,
+            primarySwatch: Colors.deepPurple,
+            scaffoldBackgroundColor: Colors.black,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: YoutubeAppDemo(data),
+        );;
+      },
+      loading: () => CircularProgressIndicator(),
+      error: (err, stack) => Text('${err}'),
     );
   }
 }
 
 ///
 class YoutubeAppDemo extends StatefulWidget {
+
+  final String trailerId;
+
+  YoutubeAppDemo(this.trailerId);
+
   @override
   _YoutubeAppDemoState createState() => _YoutubeAppDemoState();
 }
@@ -43,21 +53,14 @@ class _YoutubeAppDemoState extends State<YoutubeAppDemo> {
   @override
   void initState() {
     super.initState();
+    print('id: ${widget.trailerId}');
     _controller = YoutubePlayerController(
-      initialVideoId: 'tcodrIK2P_I',
-      params: const YoutubePlayerParams(
+      initialVideoId: widget.trailerId,
+      params: YoutubePlayerParams(
         playlist: [
-          'nPt8bK2gbaU',
-          'K18cpp_-gP8',
-          'iLnmTe5Q2Qw',
-          '_WoCV4c6XOE',
-          'KmzdUe0RSJo',
-          '6jZDSSZZxjQ',
-          'p2lYr3vM_1w',
-          '7QUtEmBT_-w',
-          '34_PXCzGw1M',
+          widget.trailerId,
         ],
-        startAt: const Duration(minutes: 1, seconds: 36),
+        startAt: const Duration(minutes: 0, seconds: 0),
         showControls: true,
         showFullscreenButton: true,
         desktopMode: false,
@@ -148,6 +151,4 @@ class _YoutubeAppDemoState extends State<YoutubeAppDemo> {
     _controller.close();
     super.dispose();
   }
-
-  Widget get _space => const SizedBox(height: 10);
 }

@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
-import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
-import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
-import 'package:vwmdb/rate/domain/usecases/rate_usecase.dart';
-import 'package:vwmdb/v_main_page.dart';
+import 'package:vwmdb/rate/presentation/viewmodels/rate_viewmodel.dart';
+
+import '../../../movie/domain/entities/movie_entity.dart';
 
 final starStateProvider = StateProvider<bool>((ref) => true);
 
 class StarsButton extends ConsumerWidget {
 
-  final int movieId;
+  final Movie movie;
 
-  StarsButton(this.movieId);
+  StarsButton(this.movie);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(starStateProvider);
-    double? starRated = ref.watch(rateProvider).getMovieRated(movieId);
+    double? starRated = ref.watch(rateProvider).getMovieRated(movie.movieId);
     print('평가된 별점 : ${starRated}');
     return IconButton(
       icon: starRated == null ? Icon(Icons.star) : Icon(Icons.star),
@@ -26,7 +24,7 @@ class StarsButton extends ConsumerWidget {
       onPressed: () async {
         await showDialog(
           context: context,
-          builder: (context) => StarRates(movieId),
+          builder: (context) => StarRates(movie),
         );
 //        setState(() {});
       },
@@ -35,9 +33,10 @@ class StarsButton extends ConsumerWidget {
 }
 
 class StarRates extends ConsumerWidget {
-  final int movieId;
 
-  StarRates(this.movieId);
+  final Movie movie;
+
+  StarRates(this.movie);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO: implement build
@@ -74,7 +73,7 @@ class StarRates extends ConsumerWidget {
   }
   Widget _ratingBar(WidgetRef ref) {
 
-    double? ratedStars = ref.watch(rateProvider).getMovieRated(movieId);
+    double? ratedStars = ref.watch(rateProvider).getMovieRated(movie.movieId);
 
     return RatingBar.builder(
           // box에서 까서 가져오는걸로 바꿀 건데 일단 임의 데이터 넣어둠
@@ -92,11 +91,11 @@ class StarRates extends ConsumerWidget {
           ),
           onRatingUpdate: (rating) {
             if(rating > 0) {
-              ref.read(rateProvider).saveMovieIfNotInLocalStore(movieId);
-              ref.read(rateProvider).postMovieRating(movieId, rating);
+              ref.read(rateProvider).saveMovieIfNotInLocalStore(movie);
+              ref.read(rateProvider).postMovieRating(movie.movieId, rating);
               print(rating);
             } else {
-              ref.read(rateProvider).deleteMovieRated(movieId);
+              ref.read(rateProvider).deleteMovieRated(movie.movieId);
               print(rating);
             }
             ref.read(starStateProvider.state).state = !ref.read(starStateProvider.state).state;

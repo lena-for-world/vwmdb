@@ -2,19 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vwmdb/movie/data/datasources/latest_movie_remote_sources.dart';
 import 'package:vwmdb/movie/data/models/latest_movie_model.dart';
-import 'package:vwmdb/movie/data/repositories/latest_movie_repository.dart';
-
-import 'movie/domain/usecases/latest_movie_usecase.dart';
+import 'package:vwmdb/movie/presentation/widgets/trailer_widget.dart';
 import 'movie_detail_page.dart';
-
-final latestMoviesProvider = FutureProvider<List<LatestMovieModel>> ((ref) async {
-  LatestMovieRemoteDataSource latestMovieRemoteDataSource = LatestMovieRemoteDataSourceImpl();
-  LatestMovieRepository latestMovieRepository = LatestMovieRepositoryImpl(latestMovieRemoteDataSource);
-  final latestMoviesList = await LatestMovieUsecase(latestMovieRepository).getLatestMovies();
-  return latestMoviesList;
-});
+import '../viewmodels/movie_viewmodel.dart';
 
 class LatestMovieView extends ConsumerWidget {
 
@@ -69,10 +60,18 @@ class ImageSliderWidgets {
               children: <Widget>[
                 Align(
                   alignment: Alignment.topCenter,
-                  child: TextButton( // 누르면 트레일러 다이얼로그 팝업
-                    child: Image.network('https://image.tmdb.org/t/p/w500${item.poster}'),
-                    onPressed: (){print('latest trailer button');},
-                  ),
+                  child: IconButton(
+                          icon: Icon(Icons.play_circle_fill_sharp),
+                          color: Colors.yellowAccent,
+                          onPressed: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return YoutubeApp(item.movieId);
+                              }
+                            );
+                          },
+                        ),
                 ),
                 Positioned(
                   left: 20,

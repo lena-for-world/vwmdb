@@ -1,31 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
-import 'package:vwmdb/boxoffice_movie_view.dart';
-import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
-import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
-import 'package:vwmdb/rate/domain/usecases/rate_usecase.dart';
-import '../latest_movie_view.dart';
-import 'movie/data/datasources/boxoffice_movie_remote_data_source.dart';
+import 'package:vwmdb/movie/presentation/pages/boxoffice_movie_view.dart';
+import 'package:vwmdb/rate/presentation/viewmodels/rate_viewmodel.dart';
+import 'movie/presentation/pages/latest_movie_view.dart';
 import 'movie/data/models/boxoffice_movie_model.dart';
-import 'movie/data/repositories/boxoffice_movie_repository.dart';
-import 'movie/domain/usecases/boxoffice_movie_usecase.dart';
-
-final boxofficeMoviesProvider = FutureProvider<List<BoxofficeMovieModel>> ((ref) async {
-  ref.watch(checkInWatchListStateProvider);
-  BoxofficeMovieRemoteDataSource boxofficeMovieRemoteDataSource = BoxofficeMovieRemoteDataSourceImpl();
-  BoxofficeMovieRepository boxofficeMovieRepository = BoxofficeMovieRepositoryImpl(boxofficeMovieRemoteDataSource);
-  final boxofficeMoviesList = await BoxofficeMovieUsecase(boxofficeMovieRepository).getBoxofficeMovies();
-  return boxofficeMoviesList;
-});
-
-final rateProvider = Provider<RateUsecase>((ref) {
-  RateLocalSource rateLocalSource = RateLocalSourceImpl(Hive.box('myMovies'));
-  RateRepository rateRepository = RateRepositoryImpl(rateLocalSource);
-  RateUsecase rateUsecase = RateUsecase(rateRepository);
-  return rateUsecase;
-});
+import 'movie/presentation/viewmodels/movie_viewmodel.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -60,7 +40,7 @@ class LowerSide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
         children: <Widget> [
-          Text('박스오피스'),
+          Text('박스 오피스'),
           Container(height: 300, child:BoxOfficeListView()),
         ]
     );

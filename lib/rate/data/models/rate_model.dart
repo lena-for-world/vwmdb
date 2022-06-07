@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 @HiveType(typeId: 0)
 class RateModel {
 
-  // TODO : store options?
+  // TODO : store options?, required
 
   @HiveField(0)
   int movieId;

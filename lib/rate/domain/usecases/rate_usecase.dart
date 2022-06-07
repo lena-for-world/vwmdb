@@ -1,3 +1,6 @@
+import 'package:vwmdb/movie/data/models/single_movie_model.dart';
+import 'package:vwmdb/movie/domain/entities/movie_entity.dart';
+import 'package:vwmdb/rate/data/models/rate_model.dart';
 import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
 
 class RateUsecase {
@@ -36,21 +39,41 @@ class RateUsecase {
     return rateRepository.getIfInWatchList(movieId);
   }
 
-  void saveMovieIfNotInLocalStore(int movieId) {
+  bool getIfMovieInRatedList(int movieId) {
+    // 영화가 리뷰가 있어서든, 별점을 매겼기 때문이든 저장되어 있긴 한 상태이므로
+    // 시청목록에 추가가 되었는지도 확인이 필요
     bool inLocalStore = rateRepository.getIfMovieInLocalStore(movieId);
+    if(inLocalStore == false)
+      return false;
+    return rateRepository.getIfInRatedList(movieId);
+  }
+
+  void saveMovieIfNotInLocalStore(Movie movie) {
+    bool inLocalStore = rateRepository.getIfMovieInLocalStore(movie.movieId);
     if(!inLocalStore) {
-      rateRepository.saveMovieIn(movieId);
+      rateRepository.saveMovieIn(movie);
     }
   }
 
   List<int> checkAllMoviesIfInWatchList() {
-    List<int> isInWatchLists = [];
+    List<int> isInWatchList = [];
     rateRepository.getAllMovieKeys().forEach((element) {
-      print(element);
+      print('watchlist: ${element}');
       if(getIfMovieInWatchList(element)) {
-        isInWatchLists.add(element);
+        isInWatchList.add(element);
       }
     });
-    return isInWatchLists;
+    return isInWatchList;
+  }
+
+  List<RateModel> checkAllMoviesIfInRatedList() {
+    List<RateModel> ratedList = [];
+    rateRepository.getAllMovieKeys().forEach((movieId) {
+      print('rated: ${movieId}');
+      if(getIfMovieInRatedList(movieId)) {
+        ratedList.add(rateRepository.getSingleRateValue(movieId));
+      }
+    });
+    return ratedList;
   }
 }

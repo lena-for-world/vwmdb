@@ -2,11 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:vwmdb/movie/domain/entities/movie_entity.dart';
 
 class BoxofficeMovieModel extends Movie {
-  @required String? poster;
   @required String? year;
 
-  BoxofficeMovieModel({required int movieId, required String title, required this.poster, required this.year})
-      : super(movieId: movieId, title: title);
+  BoxofficeMovieModel({required int movieId, required String title, required String poster, required this.year})
+      : super(movieId: movieId, title: title, poster: poster);
 
   factory BoxofficeMovieModel.fromJson(Map<String, dynamic> movie) {
     return BoxofficeMovieModel(

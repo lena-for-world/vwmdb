@@ -1,5 +1,9 @@
 import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
 
+import '../../../movie/data/models/single_movie_model.dart';
+import '../../../movie/domain/entities/movie_entity.dart';
+import '../models/rate_model.dart';
+
 abstract class RateRepository {
   bool getIfMovieInLocalStore(int movieId);
   void postCheckOrUncheckMovieInWatchList(int movieId);
@@ -8,8 +12,10 @@ abstract class RateRepository {
   double getMovieRated(int movieId);
   void postMovieRating(int movieId, double rating);
   void deleteMovieRated(int movieId);
-  void saveMovieIn(int movieId);
+  void saveMovieIn(Movie movie);
   Iterable<dynamic> getAllMovieKeys();
+  bool getIfInRatedList(int movieId);
+  RateModel getSingleRateValue(int movieId);
 }
 
 class RateRepositoryImpl implements RateRepository {
@@ -33,6 +39,11 @@ class RateRepositoryImpl implements RateRepository {
   }
 
   @override
+  bool getIfInRatedList(int movieId) {
+    return rateLocalSource.getIfInRatedList(movieId);
+  }
+
+  @override
   double getMovieRated(int movieId) {
     return rateLocalSource.getMovieRated(movieId);
   }
@@ -53,12 +64,17 @@ class RateRepositoryImpl implements RateRepository {
   }
 
   @override
-  void saveMovieIn(int movieId) {
-    rateLocalSource.saveMovieIn(movieId);
+  void saveMovieIn(Movie movie) {
+    rateLocalSource.saveMovieIn(movie);
   }
 
   @override
   Iterable getAllMovieKeys() {
     return rateLocalSource.getAllMovieKeys();
+  }
+
+  @override
+  RateModel getSingleRateValue(int movieId) {
+    return rateLocalSource.getSingleRateValue(movieId);
   }
 }

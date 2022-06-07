@@ -2,7 +2,6 @@ import '../../domain/entities/movie_entity.dart';
 
 class SingleMovieModel extends Movie {
   String overview;
-  String poster;
   String year;
   int runtime;
   double voteAverage;
@@ -12,15 +11,15 @@ class SingleMovieModel extends Movie {
   SingleMovieModel({
     required int movieId,
     required String title,
+    required String poster,
     required this.overview,
-    required this.poster,
     required this.year,
     required this.runtime,
     required this.voteAverage,
     required this.voteCount,
     required this.genres,
   })
-      : super(movieId: movieId, title: title);
+      : super(movieId: movieId, title: title, poster: poster);
 
   factory SingleMovieModel.fromJson(Map<String, dynamic> json) {
     List<String> genres = [];

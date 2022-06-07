@@ -51,7 +51,7 @@ class LatestMovieRemoteDataSourceImpl implements LatestMovieRemoteDataSource {
   @override
   String getTrailerUrl(List<dynamic> trailerJson) {
     // TODO: implement getTrailerUrl
-    return trailerJson[0]['id'];
+    return trailerJson[0]['key'];
   }
   
 }

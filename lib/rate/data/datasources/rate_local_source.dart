@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:hive/hive.dart';
-import 'package:vwmdb/rate/presentation/viewmodels/hive_box.dart';
 
+import '../../../movie/data/models/single_movie_model.dart';
+import '../../../movie/domain/entities/movie_entity.dart';
 import '../models/rate_model.dart';
 
 abstract class RateLocalSource {
@@ -14,8 +15,10 @@ abstract class RateLocalSource {
   bool getIfInWatchList(int movieId);
   void postMovieRating(int movieId, double rating);
   void deleteMovieRated(int movieId);
-  void saveMovieIn(int movieId);
+  void saveMovieIn(Movie movie);
   Iterable<dynamic> getAllMovieKeys();
+  bool getIfInRatedList(int movieId);
+  RateModel getSingleRateValue(int movieId);
 }
 
 class RateLocalSourceImpl implements RateLocalSource {
@@ -84,14 +87,29 @@ class RateLocalSourceImpl implements RateLocalSource {
   }
 
   @override
-  void saveMovieIn(int movieId) {
-    RateModel rateModel = RateModel(movieId: movieId);
-    box.put(movieId, json.encode(rateModel));
+  void saveMovieIn(Movie model) {
+    RateModel rateModel = RateModel(movieId: model.movieId, title: model.title, poster: model.poster);
+    box.put(model.movieId, json.encode(rateModel));
   }
 
   @override
   Iterable<dynamic> getAllMovieKeys() {
     return box.keys;
+  }
+
+  @override
+  bool getIfInRatedList(int movieId) {
+    RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
+    if(rateModel.stars == null || rateModel.stars == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  @override
+  RateModel getSingleRateValue(int movieId) {
+    return RateModel.fromJson(json.decode(box.get(movieId)));
   }
 
 }

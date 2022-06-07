@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vwmdb/boxoffice_movie_view.dart';
-import 'package:vwmdb/movie/data/datasources/single_movie_remote_data_source.dart';
 import 'package:vwmdb/movie/data/models/single_movie_model.dart';
-import 'package:vwmdb/movie/data/repositories/single_movie_repository.dart';
-import 'package:vwmdb/movie/domain/usecases/single_movie_usecase.dart';
-import 'package:vwmdb/rating_bar_widget.dart';
-import 'package:vwmdb/v_main_page.dart';
+import 'package:vwmdb/rate/presentation/viewmodels/rate_viewmodel.dart';
+import 'package:vwmdb/rate/presentation/widgets/rating_bar_widget.dart';
+import '../viewmodels/movie_viewmodel.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
-
-final singleMovieProvider = FutureProvider.family<SingleMovieModel, int> ((ref, movieId) async {
-  SingleMovieRemoteDataSource singleMovieRemoteDataSource = SingleMovieRemoteDataSourceImpl();
-  SingleMovieRepository singleMovieRepository = SingleMovieRepositoryImpl(singleMovieRemoteDataSource);
-  final singleMovie = await SingleMovieUsecase(singleMovieRepository).getSingleMovieDetail(movieId);
-  return singleMovie;
-});
 
 class SingleMoviePage extends ConsumerWidget {
 
@@ -109,7 +99,7 @@ class SingleMoviePageDetail extends ConsumerWidget {
                 ],
               ),
               onPressed: () {
-                ref.read(rateProvider).saveMovieIfNotInLocalStore(singleMovie.movieId);
+                ref.read(rateProvider).saveMovieIfNotInLocalStore(singleMovie);
                 ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(singleMovie.movieId);
                 ref.read(checkInWatchListStateProvider.state).state++;
               },
@@ -128,7 +118,7 @@ class SingleMoviePageDetail extends ConsumerWidget {
               SizedBox(width: 30),
               Column(
                 children: [
-                  StarsButton(singleMovie.movieId),
+                  StarsButton(singleMovie),
                   movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2} / 10'),
                   Text('rating by me'),
                 ],
