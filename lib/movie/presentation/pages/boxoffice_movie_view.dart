@@ -31,18 +31,19 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
     splashColor: Colors.white,
     highlightColor: Colors.black,
     child:Container(
-      height: 300,
+      height: 360,
       width: 170,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.grey[800],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget> [
             Stack(
               children: <Widget> [
                 Container(
-                  height: 220,
+                  height: 230,
                   width: 170,
                   child: FittedBox(
                     fit: BoxFit.fill,
@@ -54,6 +55,7 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
                 ),
                 IconButton (
                   icon: checkedIfInWatchList ? Icon(Icons.check) : Icon(Icons.add),
+                  color: checkedIfInWatchList ? Colors.yellowAccent : Colors.white,
                   iconSize: 20,
                   onPressed: () {
                     // button toggle
@@ -80,11 +82,14 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
                   movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2}'),
                 ]
             ),
-            Text(
-                '${boxofficeMovieModel.title}',
-                style: GoogleFonts.playfairDisplay(
-                  fontSize:13,
-                )
+            Expanded(
+              child: Text(
+                  '${boxofficeMovieModel.title}',
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize:13,
+                  ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ]
       ),

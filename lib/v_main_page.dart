@@ -41,7 +41,7 @@ class LowerSide extends StatelessWidget {
     return Column(
         children: <Widget> [
           Text('박스 오피스'),
-          Container(height: 300, child:BoxOfficeListView()),
+          Container(height: 360, child:BoxOfficeListView()),
         ]
     );
   }

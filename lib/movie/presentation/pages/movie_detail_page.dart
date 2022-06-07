@@ -57,7 +57,9 @@ class SingleMoviePageDetail extends ConsumerWidget {
         children: <Widget> [
           Container(
             padding: EdgeInsets.only(left: 20, top: 30, bottom: 30,),
-            child: Text('${singleMovie.title}'),
+            child: Expanded(
+              child: Text('${singleMovie.title}'),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
