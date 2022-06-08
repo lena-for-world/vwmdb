@@ -49,8 +49,10 @@ class ImageSliderWidgets {
 
   List<Widget> makeLatestMovieWidgets(List<LatestMovieModel> movieModels, BuildContext context) {
     return movieModels.map((item) => Container(
-      child: Container(
-        width: 1200,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return  Container(
+        width: constraints.maxHeight,
         margin: EdgeInsets.all(5.0),
         child: ClipRRect(
           child: InkWell( // 누르면 영화 상세 페이지로 이동
@@ -76,17 +78,25 @@ class ImageSliderWidgets {
                 Positioned(
                   left: 20,
                   bottom: 30,
-                  child: Row(
-                    children: [
-                      Image.network('https://image.tmdb.org/t/p/w500${item.poster}', fit: BoxFit.fill, width: 180.0, height: 240),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  child: Container(
+                    width: constraints.maxWidth/2,
+                      height: constraints.maxHeight/2,
+                      child: Row(
                         children: [
-                          Text('${item.title}'),
-                          Text('${item.year}'),
+                        FittedBox(
+                        fit: BoxFit.contain,
+                        child: ClipRect(
+                          child: Image.network('https://image.tmdb.org/t/p/w500${item.poster}')
+                        )),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('${item.title}'),
+                              Text('${item.year}'),
+                            ],
+                          )
                         ],
-                      )
-                    ],
+                      ),
                   ),
                 ),
                 Positioned(
@@ -134,7 +144,7 @@ class ImageSliderWidgets {
               },
           ),
         ),
-      ),
+      );}),
     ))
         .toList();
   }

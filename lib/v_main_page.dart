@@ -13,24 +13,27 @@ class MainPage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-          child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: LatestMovieView(),
-                ),
-                Expanded(
-                  child: LowerSide(),
-                ),
-              ]
-          ),
-        ),],),
-      ),
-    );
+        body: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                print(constraints.maxHeight);
+                return Container(
+                    height: constraints.maxHeight,
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: constraints.maxHeight/2,
+                          child: LatestMovieView(),
+                        ),
+                        Container(
+                          height: constraints.maxHeight/2,
+                          child: LowerSide(),
+                        ),
+                      ],
+                ),);}
+            ),
+        )
+      );
   }
 }
 
@@ -38,12 +41,16 @@ class LowerSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: <Widget> [
-          Text('박스 오피스'),
-          Container(height: 360, child:BoxOfficeListView()),
-        ]
-    );
+    return LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Container(
+                  height: constraints.maxHeight,
+                  color: Colors.red,
+                  child:
+                      BoxOfficeListView(),
+                  );
+              }
+          );
   }
 }
 
@@ -56,15 +63,23 @@ class BoxOfficeListView extends ConsumerWidget {
 
     return boxofficeMovies.when(
       data: (data) {
-        return ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(5),
-            itemCount: data.length,
-            itemBuilder: (BuildContext context, int index) {
-              bool isInWatchList = ref.read(rateProvider).getIfMovieInWatchList(data[index].movieId);
-              return BoxOfficeMovieListItem(data[index], index, isInWatchList);
-            },
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(5),
+              itemCount: data.length,
+              itemBuilder: (BuildContext context, int index) {
+                bool isInWatchList = ref.read(rateProvider).getIfMovieInWatchList(data[index].movieId);
+                return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+                  return Container(
+                      child: BoxOfficeMovieListItem(data[index], index, isInWatchList),
+                      height: constraints.maxHeight,
+                  );
+                });
+              }
+            ),
         );
       },
       loading: () => CircularProgressIndicator(),

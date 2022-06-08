@@ -31,22 +31,25 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
     splashColor: Colors.white,
     highlightColor: Colors.black,
     child:Container(
-      height: 360,
-      width: 170,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.grey[800],
       ),
-      child: Column(
+      child:
+      LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+        print('${constraints.maxHeight/4*1} ${constraints.maxHeight}');
+        return Container(
+        height: constraints.maxHeight,
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget> [
             Stack(
               children: <Widget> [
                 Container(
-                  height: 230,
+                  height: constraints.maxHeight/4*3,
                   width: 170,
                   child: FittedBox(
-                    fit: BoxFit.fill,
+                    fit: BoxFit.contain,
                     child: ClipRect(
                      child: Image.network('https://image.tmdb.org/t/p/w500${boxofficeMovieModel.poster}'),
                     )
@@ -54,46 +57,51 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
                   padding: EdgeInsets.all(10),
                 ),
                 IconButton (
-                  icon: checkedIfInWatchList ? Icon(Icons.check) : Icon(Icons.add),
-                  color: checkedIfInWatchList ? Colors.yellowAccent : Colors.white,
-                  iconSize: 20,
-                  onPressed: () {
-                    // button toggle
-                    // hive에 저장
-                    ref.read(rateProvider).saveMovieIfNotInLocalStore(boxofficeMovieModel);
-                    ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(boxofficeMovieModel.movieId);
-                    ref.read(checkInWatchListStateProvider.state).state++; // int 증가로 리스트 변경하기, 아이콘은 리스트 재빌드되면서 알아서 잘 들어갈거라 변경해도 상관없음
-                  },
-                )
+                    icon: checkedIfInWatchList ? Icon(Icons.check) : Icon(Icons.add),
+                    color: checkedIfInWatchList ? Colors.yellowAccent : Colors.white,
+                    iconSize: 20,
+                    onPressed: () {
+                      // button toggle
+                      // hive에 저장
+                      ref.read(rateProvider).saveMovieIfNotInLocalStore(boxofficeMovieModel);
+                      ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(boxofficeMovieModel.movieId);
+                      ref.read(checkInWatchListStateProvider.state).state++; // int 증가로 리스트 변경하기, 아이콘은 리스트 재빌드되면서 알아서 잘 들어갈거라 변경해도 상관없음
+                    },
+                ),
               ],
             ),
-            Text('${boxofficeRanking+1}'),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget> [
-                  Icon(Icons.star),
-                  Text(
-                      '${movieRatedByOthers}',
-                      style: GoogleFonts.playfairDisplay(
-                        fontSize:13,
-                      )
+            Container(
+              height: constraints.maxHeight/4*1,
+              child: Column(
+                children: [
+                  Text('${boxofficeRanking+1}'),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget> [
+                        Icon(Icons.star, size: constraints.maxHeight/4*1 < 50 ? 15: 20),
+                        Text(
+                            '${movieRatedByOthers}',
+                            style: GoogleFonts.playfairDisplay(
+                              fontSize: constraints.maxHeight/4*1 < 50 ? 13: 15,
+                            )
+                        ),
+                        movieRatedByMe == null ? Text('') : Icon(Icons.star),
+                        movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2}'),
+                      ]
                   ),
-                  movieRatedByMe == null ? Text('') : Icon(Icons.star),
-                  movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2}'),
+                  Expanded(child:Text(
+                        '${boxofficeMovieModel.title}',
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: constraints.maxHeight/4*1 < 50 ? 13: 15,
+                        ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ]
-            ),
-            Expanded(
-              child: Text(
-                  '${boxofficeMovieModel.title}',
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize:13,
-                  ),
-                textAlign: TextAlign.center,
               ),
             ),
-          ]
-      ),
-    ), onTap: (){
+      ],),);},),
+    ), onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder:
           (context) => SingleMoviePage(boxofficeMovieModel.movieId)
         )
