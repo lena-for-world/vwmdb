@@ -8,12 +8,10 @@ class LatestMovieUsecase {
   LatestMovieUsecase(this.latestMovieRepository);
 
   Future<List<LatestMovieModel>> getLatestMovies() async {
-    List<dynamic> movieJson = await latestMovieRepository.getLatestMoviesJson();
-    return latestMovieRepository.getLatestMovies(movieJson);
+    return latestMovieRepository.getLatestMovies();
   }
 
   Future<String> getTrailer(int movieId) async {
-    List<dynamic> urlJson= await latestMovieRepository.getTrailerJson(movieId);
-    return latestMovieRepository.getTrailerUrl(urlJson);
+    return latestMovieRepository.getTrailerUrl(movieId);
   }
 }

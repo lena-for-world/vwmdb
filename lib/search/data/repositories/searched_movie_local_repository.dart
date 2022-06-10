@@ -1,4 +1,4 @@
-import 'package:vwmdb/movie/data/datasources/searched_movie_local_source.dart';
+import 'package:vwmdb/search/data/datasources/searched_movie_local_source.dart';
 
 abstract class SearchedMovieLocalRepository {
   void saveSearchedKeyInLocalStoreIfNotExists();

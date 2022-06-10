@@ -9,7 +9,8 @@ class BoxofficeMovieUsecase {
   BoxofficeMovieUsecase(this.boxofficeMovieRepository);
 
   Future<List<BoxofficeMovieModel>> getBoxofficeMovies() async {
-    List<dynamic> jsonMovies = await boxofficeMovieRepository.getBoxofficeMoviesJson();
-    return boxofficeMovieRepository.getBoxofficeMovies(jsonMovies);
+    /*List<dynamic> jsonMovies = await boxofficeMovieRepository.getBoxofficeMoviesJson();
+    return boxofficeMovieRepository.getBoxofficeMovies(jsonMovies);*/
+    return boxofficeMovieRepository.getBoxofficeMovies();
   }
 }

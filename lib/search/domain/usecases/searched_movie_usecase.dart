@@ -1,5 +1,5 @@
-import 'package:vwmdb/movie/data/models/searched_movie_model.dart';
-import 'package:vwmdb/movie/data/repositories/searched_movie_repository.dart';
+import 'package:vwmdb/search/data/models/searched_movie_model.dart';
+import 'package:vwmdb/search/data/repositories/searched_movie_repository.dart';
 
 class SearchedMovieUsecase {
   SearchedMovieRepository searchedMovieRepository;

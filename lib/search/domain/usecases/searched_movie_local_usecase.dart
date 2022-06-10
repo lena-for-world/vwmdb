@@ -1,4 +1,4 @@
-import 'package:vwmdb/movie/data/repositories/searched_movie_local_repository.dart';
+import 'package:vwmdb/search/data/repositories/searched_movie_local_repository.dart';
 
 class SearchedMovieLocalUsecase {
   SearchedMovieLocalRepository searchedMovieLocalRepository;

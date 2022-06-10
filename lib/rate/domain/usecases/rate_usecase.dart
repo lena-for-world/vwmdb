@@ -58,8 +58,7 @@ class RateUsecase {
   List<int> checkAllMoviesIfInWatchList() {
     List<int> isInWatchList = [];
     rateRepository.getAllMovieKeys().forEach((element) {
-      print('watchlist: ${element}');
-      if(getIfMovieInWatchList(element)) {
+      if(element.runtimeType == int && getIfMovieInWatchList(element)) {
         isInWatchList.add(element);
       }
     });
@@ -70,7 +69,7 @@ class RateUsecase {
     List<RateModel> ratedList = [];
     rateRepository.getAllMovieKeys().forEach((movieId) {
       print('rated: ${movieId}');
-      if(getIfMovieInRatedList(movieId)) {
+      if(movieId.runtimeType == int && getIfMovieInRatedList(movieId)) {
         ratedList.add(rateRepository.getSingleRateValue(movieId));
       }
     });

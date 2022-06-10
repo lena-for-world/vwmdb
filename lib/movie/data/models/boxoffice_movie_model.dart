@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:vwmdb/movie/domain/entities/movie_entity.dart';
 
+// TODO : movie를 model로
 class BoxofficeMovieModel extends Movie {
   @required String? year;
 

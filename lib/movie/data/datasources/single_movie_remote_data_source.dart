@@ -21,6 +21,4 @@ class SingleMovieRemoteDataSourceImpl implements SingleMovieRemoteDataSource {
     return SingleMovieModel.fromJson(jsonMovie);
   }
 
-
-
 }

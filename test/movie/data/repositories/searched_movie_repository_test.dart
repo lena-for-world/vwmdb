@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:vwmdb/movie/data/datasources/searched_movie_remote_data_source.dart';
-import 'package:vwmdb/movie/data/repositories/searched_movie_repository.dart';
-import 'package:vwmdb/movie/domain/usecases/searched_movie_usecase.dart';
+import 'package:vwmdb/search/data/datasources/searched_movie_remote_data_source.dart';
+import 'package:vwmdb/search/data/repositories/searched_movie_repository.dart';
+import 'package:vwmdb/search/domain/usecases/searched_movie_usecase.dart';
 
 class MockRemoteDataSource extends Mock implements SearchedRemoteDatasource {}
 

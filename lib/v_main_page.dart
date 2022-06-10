@@ -59,7 +59,8 @@ class BoxOfficeListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    AsyncValue<List<BoxofficeMovieModel>> boxofficeMovies = ref.watch(boxofficeMoviesProvider);
+    // TODO : ref.watch가 탭을 이동했다가 다시 돌아왔을때도 새로호출하려면 autodispose써야함.. 근데 의도대로 동작안하는경우도있어서 알아보기
+   AsyncValue<List<BoxofficeMovieModel>> boxofficeMovies = ref.watch(boxofficeMoviesProvider);
 
     return boxofficeMovies.when(
       data: (data) {
@@ -82,7 +83,7 @@ class BoxOfficeListView extends ConsumerWidget {
             ),
         );
       },
-      loading: () => CircularProgressIndicator(),
+      loading: () => Center(child: CircularProgressIndicator()),
       error: (err, stack) => Text('boxofficelistview error: ${err}'),
     );
   }
