@@ -6,9 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
-import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
-import 'package:vwmdb/rate/domain/usecases/rate_usecase.dart';
+import 'package:vwmdb/movie/data/datasources/rate/rate_local_source.dart';
+import 'package:vwmdb/movie/data/repositories/rate/rate_repository.dart';
+import 'package:vwmdb/movie/domain/usecases/rate/rate_usecase.dart';
 
 class MockRateRepository extends Mock implements RateRepository{}
 

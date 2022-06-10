@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:vwmdb/search/data/datasources/searched_movie_local_source.dart';
+import 'package:vwmdb/movie/data/datasources/search/searched_movie_local_source.dart';
 
 void main() async {
 

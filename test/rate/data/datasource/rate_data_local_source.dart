@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
-import 'package:vwmdb/rate/data/models/rate_model.dart';
-import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
+import 'package:vwmdb/movie/data/datasources/rate/rate_local_source.dart';
+import 'package:vwmdb/movie/data/models/rate/rate_model.dart';
+import 'package:vwmdb/movie/data/repositories/rate/rate_repository.dart';
 
 void main() {
   RateRepository? rateRepository;

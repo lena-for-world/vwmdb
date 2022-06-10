@@ -3,20 +3,19 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:vwmdb/movie/data/datasources/single_movie_remote_data_source.dart';
-import 'package:vwmdb/movie/data/models/single_movie_model.dart';
-import 'package:vwmdb/movie/data/repositories/single_movie_repository.dart';
+import 'package:vwmdb/movie/data/datasources/movie/movie_remote_data_source.dart';
+import 'package:vwmdb/movie/data/repositories/movie/movie_repository.dart';
 
-class MockSingleRemoteDataSource extends Mock implements SingleMovieRemoteDataSource {}
+class MockSingleRemoteDataSource extends Mock implements MovieRemoteDataSource {}
 
 void main() {
 
-  SingleMovieRemoteDataSource? singleRemoteDataSource;
-  SingleMovieRepository? singleMovieRepository;
+  MovieRemoteDataSource? singleRemoteDataSource;
+  MovieRepository? singleMovieRepository;
 
   setUp(() {
-    singleRemoteDataSource = SingleMovieRemoteDataSourceImpl();
-    singleMovieRepository = SingleMovieRepositoryImpl(
+    singleRemoteDataSource = MovieRemoteDataSourceImpl();
+    singleMovieRepository = MovieRepositoryImpl(
       singleRemoteDataSource!
     );
   });

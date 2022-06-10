@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:vwmdb/search/presentation/pages/search_page.dart';
+import 'package:vwmdb/presentation/pages/rate/my_page.dart';
+import 'package:vwmdb/presentation/pages/search/search_page.dart';
 import 'package:vwmdb/v_main_page.dart';
-import 'rate/presentation/pages/my_page.dart';
 
 void main() async {
   await Hive.initFlutter();

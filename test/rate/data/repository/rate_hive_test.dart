@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:vwmdb/rate/data/models/rate_model.dart';
+import 'package:vwmdb/movie/data/models/rate/rate_model.dart';
 
 class Testing {
   final String a;

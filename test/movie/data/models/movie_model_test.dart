@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vwmdb/movie/data/models/latest_movie_model.dart';
-import 'package:vwmdb/movie/data/models/single_movie_model.dart';
+import 'package:vwmdb/movie/data/models/movie/latest_movie_model.dart';
+import 'package:vwmdb/movie/data/models/movie/single_movie_model.dart';
 import 'package:vwmdb/movie/domain/entities/movie_entity.dart';
 
 import '../../../core/fixture/fixture_reader.dart';

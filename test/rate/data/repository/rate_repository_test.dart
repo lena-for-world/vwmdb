@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:vwmdb/rate/data/datasources/rate_local_source.dart';
-import 'package:vwmdb/rate/data/repositories/rate_repository.dart';
+import 'package:vwmdb/movie/data/datasources/rate/rate_local_source.dart';
+import 'package:vwmdb/movie/data/repositories/rate/rate_repository.dart';
 
 void main() {
 

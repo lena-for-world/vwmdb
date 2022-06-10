@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vwmdb/movie/presentation/pages/boxoffice_movie_view.dart';
-import 'package:vwmdb/rate/presentation/viewmodels/rate_viewmodel.dart';
-import 'movie/presentation/pages/latest_movie_view.dart';
-import 'movie/data/models/boxoffice_movie_model.dart';
-import 'movie/presentation/viewmodels/movie_viewmodel.dart';
+import 'package:vwmdb/presentation/pages/movie/boxoffice_movie_view.dart';
+import 'package:vwmdb/presentation/pages/movie/latest_movie_view.dart';
+import 'package:vwmdb/presentation/viewmodels/movie/movie_viewmodel.dart';
+import 'package:vwmdb/presentation/viewmodels/rate/rate_viewmodel.dart';
+
+import 'data/models/movie/boxoffice_movie_model.dart';
 
 class MainPage extends StatelessWidget {
   @override
