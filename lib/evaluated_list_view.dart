@@ -9,17 +9,17 @@ import 'data/models/rate/rate_model.dart';
 class EvaluatedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black26,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white,),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
         body: Container(
             padding: EdgeInsets.all(30),
             child: EvaluatedListView(),
         ),
-      ),
     );
   }
 }

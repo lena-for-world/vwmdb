@@ -18,17 +18,17 @@ class SingleMoviePage extends ConsumerWidget {
     AsyncValue<SingleMovieModel> singleMovieModel = ref.watch(singleMovieProvider(movieId));
     return singleMovieModel.when(
       data: (data) {
-        return MaterialApp(
-          theme: ThemeData.dark().copyWith(
-            scaffoldBackgroundColor: darkBlue,
-          ),
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            appBar: AppBar(title: Text('Title')),
+        return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios, color: Colors.white,),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              title: Text('Title'),
+            ),
             body: Center(
               child: SingleMoviePageDetail(data),
             ),
-          ),
         );
       },
       loading: () => CircularProgressIndicator(),

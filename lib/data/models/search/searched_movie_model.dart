@@ -7,8 +7,8 @@ class SearchedMovieModel extends Movie {
   factory SearchedMovieModel.fromJson(Map<String, dynamic> movie) {
     return SearchedMovieModel(
         movieId: movie['id'],
-        title: movie['original_title'],
-        poster: movie['poster_path'],
+        title: movie['original_title'] ?? '제목이 없습니다',
+        poster: movie['poster_path'] ?? 'null',
     );
   }
 }

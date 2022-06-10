@@ -5,6 +5,8 @@ import 'package:hive/hive.dart';
 import '../../../data/datasources/search/searched_movie_local_source.dart';
 import '../../../data/repositories/search/searched_movie_local_repository.dart';
 import '../../../domain/usecases/search/searched_movie_local_usecase.dart';
+import '../../pages/search/search_page.dart';
+import '../../viewmodels/search/search_viewmodel.dart';
 
 final searchedProvider = Provider<SearchedMovieLocalUsecase>((ref) {
   SearchedMovieLocalSource searchedMovieLocalSource = SearchedMovieLocalSourceImpl(Hive.box('myMovies'));
@@ -13,12 +15,13 @@ final searchedProvider = Provider<SearchedMovieLocalUsecase>((ref) {
   return searchedMovieLocalUsecase;
 });
 
+final queryProvider = Provider<String>((ref) => '');
+
 class SearchedItemsListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<String> searchedList = ref.watch(searchedProvider).getSearchedMoviesInLocal();
-    print('SearchedItemsListView${searchedList.runtimeType}');
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       scrollDirection: Axis.vertical,
@@ -34,18 +37,26 @@ class SearchedItemsListView extends ConsumerWidget {
   }
 }
 
-class SearchedItemView extends StatelessWidget {
+class SearchedItemView extends ConsumerWidget {
 
   String item;
 
   SearchedItemView(this.item);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 80,
-        padding: EdgeInsets.all(5),
-        child: Text('${item}'),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return InkWell( // 누르면 영화 상세 페이지로 이동
+        splashColor: Colors.white,
+        highlightColor: Colors.black,
+          child:Container(
+            height: 80,
+            padding: EdgeInsets.all(5),
+            child: Text('${item}'),
+          ),
+      onTap: () {
+        ref.read(searchState.state).state = true;
+        ref.read(searchTrackProvider.state).state = item;
+      },
     );
   }
 }
