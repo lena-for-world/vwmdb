@@ -4,8 +4,8 @@ import 'package:vwmdb/presentation/pages/movie/movie_detail_page.dart';
 import 'package:vwmdb/presentation/viewmodels/rate/rate_viewmodel.dart';
 import 'package:vwmdb/presentation/viewmodels/search/search_viewmodel.dart';
 
-import 'data/models/rate/rate_model.dart';
-import 'data/models/search/searched_movie_model.dart';
+import '../../../data/models/rate/rate_model.dart';
+import '../../../data/models/search/searched_movie_model.dart';
 
 // 리뷰, 별점 리스트 출력에 사용할 위젯
 

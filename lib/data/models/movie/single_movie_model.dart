@@ -29,13 +29,13 @@ class SingleMovieModel extends Movie {
     return SingleMovieModel(
       movieId: json['id'],
       title: json['original_title'],
-      overview: json['overview'],
-      poster: json['poster_path'],
-      year: json['release_date'],
-      runtime: json['runtime'],
-      voteAverage: json['vote_average'],
-      voteCount: json['vote_count'],
-      genres: genres,
+      overview: json['overview'] ?? 'null',
+      poster: json['poster_path'] ?? 'null',
+      year: json['release_date'] ?? 'null',
+      runtime: json['runtime'] ?? 'null',
+      voteAverage: json['vote_average'] ?? 'null',
+      voteCount: json['vote_count'] ?? 'null',
+      genres: genres ?? [],
     );
   }
 }

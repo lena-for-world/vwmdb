@@ -31,7 +31,7 @@ class YoutubeApp extends ConsumerWidget {
           home: YoutubeAppDemo(data),
         );;
       },
-      loading: () => CircularProgressIndicator(),
+      loading: () => Center(child: CircularProgressIndicator()),
       error: (err, stack) => Text('${err}'),
     );
   }

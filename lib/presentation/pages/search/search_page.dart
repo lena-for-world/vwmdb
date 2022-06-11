@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vwmdb/presentation/pages/search/search_bar_result_page.dart';
+import 'package:vwmdb/presentation/widgets/search/search_ing_result_view.dart';
 
-import '../../../search_results_page.dart';
+import 'search_results_page.dart';
 import '../../viewmodels/search/search_viewmodel.dart';
-import '../../widgets/search/contents_list_view.dart';
-import '../../../data/models/search/searched_movie_model.dart';
+import '../../widgets/search/search_ed_result_view.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
@@ -25,19 +24,21 @@ class SearchPage extends ConsumerWidget {
       home: Scaffold(
         body: Container(
           padding: EdgeInsets.all(30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SearchInputArea(),
-              SizedBox(height: 30),
-              ref.read(searchState.state).state ? Text('검색하기') : Text('   최근 검색'),
-              SizedBox(height: 20),
-              Divider(thickness: 2,),
-              SizedBox(height: 20,),
-              ref.read(searchState.state).state ? SearchingResultList() : SearchedItemsListView(),
-            ],
-          )
+          child: SingleChildScrollView(
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SearchInputArea(),
+                SizedBox(height: 30),
+                ref.read(searchState.state).state ? Text('검색하기') : Text('   최근 검색'),
+                SizedBox(height: 20),
+                Divider(thickness: 2,),
+                SizedBox(height: 20,),
+                ref.read(searchState.state).state ? SearchingResultList() : SearchedItemsListView(),
+              ],
+            )
+          ),
         ),
       ),
     );
