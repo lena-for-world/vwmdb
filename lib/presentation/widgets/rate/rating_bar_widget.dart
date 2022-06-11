@@ -17,16 +17,17 @@ class StarsButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(starStateProvider);
     double? starRated = ref.watch(rateProvider).getMovieRated(movie.movieId);
-    print('평가된 별점 : ${starRated}');
     return IconButton(
       icon: starRated == null ? Icon(Icons.star) : Icon(Icons.star),
       color: starRated == null ? Colors.white : Colors.yellow,
       onPressed: () async {
         await showDialog(
           context: context,
-          builder: (context) => StarRates(movie),
+          builder: (context) => LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+                return Container(child: StarRates(movie), width: constraints.maxWidth/3,);
+            }),
         );
-//        setState(() {});
       },
     );
   }

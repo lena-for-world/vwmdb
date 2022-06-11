@@ -26,12 +26,21 @@ class SingleMoviePage extends ConsumerWidget {
               ),
               title: Text('Title'),
             ),
-            body: Center(
-              child: SingleMoviePageDetail(data),
+            body: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Container(
+                    width: constraints.maxWidth,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: SingleMoviePageDetail(data),
+                    ),
+                  );
+                },
+
             ),
         );
       },
-      loading: () => CircularProgressIndicator(),
+      loading: () => Center(child: CircularProgressIndicator()),
     error: (err, stack) => Text('${err}'),
     );
   }
@@ -49,86 +58,97 @@ class SingleMoviePageDetail extends ConsumerWidget {
     ref.watch(checkInWatchListStateProvider);
     double? movieRatedByMe = ref.watch(rateProvider).getMovieRated(singleMovie.movieId);
     bool ifInWatchList = ref.read(rateProvider).getIfMovieInWatchList(singleMovie.movieId);
-    return Container(
-      width: 1000,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget> [
-          Container(
-            padding: EdgeInsets.only(left: 20, top: 30, bottom: 30,),
-            child: Expanded(
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Container(
+        width: constraints.maxWidth,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget> [
+            Container(
+              padding: EdgeInsets.only(left: 20, top: 30, bottom: 30,),
               child: Text('${singleMovie.title}'),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget> [
-              Text('${singleMovie.year}'), Text('age'), Text('${singleMovie.runtime} minutes'),
-            ],
-          ),
-          Row(
-            children: <Widget> [
-              Container(
-                width: 200,
-                height: 240,
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}'),
-                ),
-
-                padding: EdgeInsets.only(left: 20, right: 30, bottom: 10, top: 40),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget> [
-                  Text('${singleMovie.genres}'),
-                  SizedBox(height: 20),
-                  Text('${singleMovie.overview}'),
-                ],
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
-            child: ElevatedButton(
+            Container(
+              width: constraints.maxWidth/2,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget> [
-                  Icon(Icons.add, size: 16),
-                  SizedBox(width: 10),
-                  ifInWatchList ? Text('시청목록에서 삭제') : Text('시청목록에 추가'),
+                  Text('${singleMovie.year}'), Text('age'), Text('${singleMovie.runtime} minutes'),
                 ],
-              ),
-              onPressed: () {
-                ref.read(rateProvider).saveMovieIfNotInLocalStore(singleMovie);
-                ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(singleMovie.movieId);
-                ref.read(checkInWatchListStateProvider.state).state++;
-              },
+            ),),
+            Row(
+              children: <Widget> [
+                Container(
+                  width: constraints.maxWidth/2,
+                  height: 240,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}'),
+                  ),
+
+                  padding: EdgeInsets.only(left: 20, right: 30, bottom: 10, top: 40),
+                ),
+                Container(
+                  width: constraints.maxWidth/2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Text('${singleMovie.genres}'),
+                      SizedBox(height: 20),
+                      // LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints){
+                      //   return Container(
+                      /*
+                       layoutbuilder를 한번 더 사용하면 제대로 안 나오는데, 기존 layoutbuilder 안에 또 선언해서 사용하려고 했기 때문인듯?
+                       걍 쓰면 잘 나옴ㅎ
+                      */Text('${singleMovie.overview}'),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget> [
-              Column(
-                children: [
-                  Icon(Icons.favorite),
-                  Text('${singleMovie.voteAverage} / ${singleMovie.voteCount}'),
-                  Text('rating by others'),
-                ],
+            Container(
+              padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+              child: ElevatedButton(
+                child: Row(
+                  children: <Widget> [
+                    Icon(Icons.add, size: 16),
+                    SizedBox(width: 10),
+                    ifInWatchList ? Text('시청목록에서 삭제') : Text('시청목록에 추가'),
+                  ],
+                ),
+                onPressed: () {
+                  ref.read(rateProvider).saveMovieIfNotInLocalStore(singleMovie);
+                  ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(singleMovie.movieId);
+                  ref.read(checkInWatchListStateProvider.state).state++;
+                },
               ),
-              SizedBox(width: 30),
-              Column(
-                children: [
-                  StarsButton(singleMovie),
-                  movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2} / 10'),
-                  Text('rating by me'),
-                ],
-              ),
-            ],
-          )
-        ],
-      ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget> [
+                Column(
+                  children: [
+                    Icon(Icons.favorite),
+                    Text('${singleMovie.voteAverage} / ${singleMovie.voteCount}'),
+                    Text('rating by others'),
+                  ],
+                ),
+                SizedBox(width: 30),
+                Column(
+                  children: [
+                    StarsButton(singleMovie),
+                    movieRatedByMe == null ? Text('') : Text('${movieRatedByMe*2} / 10'),
+                    Text('rating by me'),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );}
     );
   }
 }
