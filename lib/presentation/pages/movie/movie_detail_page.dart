@@ -24,7 +24,7 @@ class SingleMoviePage extends ConsumerWidget {
                 icon: Icon(Icons.arrow_back_ios, color: Colors.white,),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              title: Text('Title'),
+              title: Text('${data.title}'),
             ),
             body: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {

@@ -14,9 +14,9 @@ class MainPage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: null,
         body: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                print(constraints.maxHeight);
                 return Container(
                     height: constraints.maxHeight,
                     color: Colors.white,

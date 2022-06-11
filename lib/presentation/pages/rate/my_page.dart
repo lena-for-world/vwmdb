@@ -4,15 +4,13 @@ import '../../../../evaluated_list_view.dart';
 import '../../../data/models/movie/single_movie_model.dart';
 import '../../viewmodels/movie/movie_viewmodel.dart';
 import '../../viewmodels/rate/rate_viewmodel.dart';
-
-const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
-
+정
 class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: darkBlue,
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -27,47 +25,50 @@ class MyPage extends StatelessWidget {
 class MyPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget> [
-          Row(
-            children: <Widget> [
-              Expanded (
-                child: TextButton(
-                  child: Container(
-                    width: 100, height: 100,
-                    child: Align(alignment: Alignment.center, child: Text('내 평가'),),
+    return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget> [
+            Row(
+              children: <Widget> [
+                Expanded (
+                  child: TextButton(
+                    child: Container(
+                      width: 100, height: 100,
+                      child: Align(alignment: Alignment.center, child: Text('내 평가'),),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder:
+                          (context) => EvaluatedView()));
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder:
-                        (context) => EvaluatedView()));
-                  },
                 ),
-              ),
-              Expanded (
-                child: TextButton(
-                  child: Container(
-                    width: 100, height: 100,
-                    child: Align(alignment: Alignment.center, child: Text('내 리뷰'),),
+                Expanded (
+                  child: TextButton(
+                    child: Container(
+                      width: 100, height: 100,
+                      child: Align(alignment: Alignment.center, child: Text('내 리뷰'),),
+                    ),
+                    onPressed: () {},
                   ),
-                  onPressed: () {},
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 50),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child:
-            Text('나중에 볼 영화들'),
-          ),
-          SizedBox(height: 20),
-          Container(height: 300, child: WatchListView(),),
-        ],
-      ),
+              ],
+            ),
+            SizedBox(height: 50),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child:
+              Text('나중에 볼 영화들'),
+            ),
+            SizedBox(height: 20),
+            Container(height: 300, child: WatchListView(),),
+          ],
+        ),
+        ),
     );
   }
 }

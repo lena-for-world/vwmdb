@@ -37,7 +37,6 @@ class BoxOfficeMovieListItem extends ConsumerWidget {
       ),
       child:
       LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-        print('${constraints.maxHeight/4*1} ${constraints.maxHeight}');
         return Container(
         height: constraints.maxHeight,
         child: Column(
