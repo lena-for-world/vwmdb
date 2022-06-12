@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vwmdb/presentation/pages/search/search_results_page.dart';
+import 'package:vwmdb/presentation/viewmodels/search/search_viewmodel.dart';
+import 'package:vwmdb/presentation/widgets/search/search_ed_result_view.dart';
 import 'package:vwmdb/presentation/widgets/search/search_ing_result_view.dart';
-
-import 'search_results_page.dart';
-import '../../viewmodels/search/search_viewmodel.dart';
-import '../../widgets/search/search_ed_result_view.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
 final searchState = StateProvider<bool>((ref) => false);
 
-class SearchPage extends ConsumerWidget {
+class Experiment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print(ref.read(searchState.state).state);
     ref.watch(searchState);
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: darkBlue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: //LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-          SingleChildScrollView(
-              child:ListView(
-                scrollDirection: Axis.vertical,
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: darkBlue,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+            return Container(
+              padding: EdgeInsets.all(30),
+              child: ListView(
                 shrinkWrap: true,
                 children: [
                   SearchInputArea(),
@@ -34,28 +33,30 @@ class SearchPage extends ConsumerWidget {
                   SizedBox(height: 20),
                   Divider(thickness: 2,),
                   SizedBox(height: 20,),
-                  // Container(
-                  //   height: constraints.maxHeight/5*3,
-                  //   child:
-                    //Expanded(child:
-                      ref.read(searchState.state).state
-                      ? SearchingResultList() : SearchedItemsListView(),
-                  //),
-                    //),
-            ],
-          )
-        //}
-      ),
-    ));//);
+                   Container(
+                     height: constraints.maxHeight/5*3,
+                     child: SingleChildScrollView(
+                       child: ref.read(searchState.state).state
+                           ? SearchingResultList() : SearchedItemsListView(),
+                     )
+                  ),
+                ],
+              ),
+            );
+          }
+          ),
+        ));
   }
 }
 
-/*
-SingleChildScrollView(
-              padding: EdgeInsets.all(30),
-            physics: NeverScrollableScrollPhysics(),
-              child:
-*/
+class SelectSearchAreaBottom extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.read(searchState.state).state
+        ? SearchingResultList() : SearchedItemsListView();
+  }
+
+}
 
 class SearchInputArea extends ConsumerWidget {
 
@@ -64,9 +65,7 @@ class SearchInputArea extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     inputText = ref.read(searchTrackProvider.state).state; // watch로 만들면 변경될 때마다 재빌드하기 때문에 read 사용
-    return Container(
-      height: 60,
-        child: Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         ref.read(searchState.state).state == false ? Text('') : Expanded(
@@ -106,6 +105,6 @@ class SearchInputArea extends ConsumerWidget {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultPage(inputText)));
               }),
         ),
-      ],));
+      ],);
   }
 }

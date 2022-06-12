@@ -81,9 +81,14 @@ class SearchedResultItem extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.only(right: 10),
-                child: Image.network('https://image.tmdb.org/t/p/w500${searchedMovieModel.poster}'),
+                child: searchedMovieModel.poster == 'null'
+                  ? Image.asset('assets/images/default.jpeg')
+                  : Image.network('https://image.tmdb.org/t/p/w500${searchedMovieModel.poster}'),
               ),
-              Text('${searchedMovieModel.title}'),
+              Container(
+                width: 200,
+                child: Text('${searchedMovieModel.title}'),
+              ),
             ],
           )
         ),

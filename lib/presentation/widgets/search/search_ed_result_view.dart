@@ -23,16 +23,17 @@ class SearchedItemsListView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<String> searchedList = ref.watch(searchedProvider).getSearchedMoviesInLocal();
     return ListView.separated(
-      padding: const EdgeInsets.all(8),
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: searchedList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: SearchedItemView(searchedList[index]),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      physics: NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(8),
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: searchedList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            child: SearchedItemView(searchedList[index]),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
   }
 }
@@ -51,11 +52,18 @@ class SearchedItemView extends ConsumerWidget {
           child:Container(
             height: 80,
             padding: EdgeInsets.all(5),
-            child: Text('${item}'),
+            child: Container(
+              width: 50,
+              child: Text('${item}'),
+            ),
           ),
       onTap: () {
-        ref.read(searchState.state).state = true;
         ref.read(searchTrackProvider.state).state = item;
+        print(
+            ref.read(searchTrackProvider.state).state = item);
+        print(ref.read(searchState.state).state);
+        ref.read(searchState.state).state = true;
+        print(ref.read(searchState.state).state);
       },
     );
   }

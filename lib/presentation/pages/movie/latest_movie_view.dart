@@ -78,6 +78,20 @@ class MakeLatestMovieWidget extends StatelessWidget{
                     child: Stack(
                       children: <Widget>[
                         Positioned(
+                          left: 50,
+                          bottom: 40,
+                          child: Container(
+                            height: constraints.maxHeight/2,
+                            child: Row(
+                              children: [
+                                ClipRect(
+                                    child: Image.network('https://image.tmdb.org/t/p/w500${movieModel.poster}')
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
                           bottom: 0.0,
                           left: 0.0,
                           right: 0.0,
@@ -107,20 +121,6 @@ class MakeLatestMovieWidget extends StatelessWidget{
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 50,
-                          bottom: 40,
-                          child: Container(
-                            height: constraints.maxHeight/2,
-                            child: Row(
-                              children: [
-                                ClipRect(
-                                    child: Image.network('https://image.tmdb.org/t/p/w500${movieModel.poster}')
-                                ),
-                              ],
                             ),
                           ),
                         ),

@@ -4,7 +4,7 @@ import '../../../../evaluated_list_view.dart';
 import '../../../data/models/movie/single_movie_model.dart';
 import '../../viewmodels/movie/movie_viewmodel.dart';
 import '../../viewmodels/rate/rate_viewmodel.dart';
-정
+
 class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

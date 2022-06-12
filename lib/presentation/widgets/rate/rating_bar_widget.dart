@@ -41,7 +41,11 @@ class StarRates extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO: implement build
-    return AlertDialog(
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Container(
+          width: constraints.maxWidth/2,
+            child: AlertDialog(
         title: Text(
           '이 영화를 어떻게 보셨나요?',
           textAlign: TextAlign.center,
@@ -69,7 +73,7 @@ class StarRates extends ConsumerWidget {
             ),
           ]
         ),
-
+    ),);}
     );
   }
   Widget _ratingBar(WidgetRef ref) {
