@@ -29,25 +29,27 @@ class SearchPage extends ConsumerWidget {
                 builder: (BuildContext context, BoxConstraints constraints) {
                 return Container(
                 height: constraints.maxHeight,
-                child:Column(
-                  children: [
-                    SizedBox(height: 20),
-                    SearchInputArea(),
-                    SizedBox(height: 30),
-                    ref.read(searchState.state).state ? Text('검색하기') : Text('   최근 검색'),
-                    SizedBox(height: 20),
-                    Divider(thickness: 2,),
-                    SizedBox(height: 20,),
-                    Container(
-                      height: constraints.maxHeight/5*3,
-                       child:
-                      //Expanded(child:
-                        ref.read(searchState.state).state
-                        ? SearchingList() : SearchedList(),
-                    //),
-                      ),
+                child:SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      SearchInputArea(),
+                      SizedBox(height: 30),
+                      ref.read(searchState.state).state ? Text('검색하기') : Text('   최근 검색'),
+                      SizedBox(height: 20),
+                      Divider(thickness: 2,),
+                      SizedBox(height: 20,),
+                      Container(
+                        height: constraints.maxHeight/5*3,
+                         child:
+                        //Expanded(child:
+                          ref.read(searchState.state).state
+                          ? SearchingList() : SearchedList(),
+                      //),
+                        ),
               ],
-            ));}),
+            ),
+                ));}),
         //}
       ),),
       ));//);
