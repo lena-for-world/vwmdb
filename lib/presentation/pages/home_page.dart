@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -24,10 +26,41 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: _title,
-      home: HomeWidget(),
+      home: Splash(),
       debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class Splash extends StatefulWidget {
+  @override
+  _SplashState createState() => _SplashState();
+}
+class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 4),
+            ()=>Navigator.pushReplacement(context,
+            MaterialPageRoute(builder:
+                (context) =>
+                HomeWidget()
+            )
+        )
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: 100,
+        height: 100,
+        color: Colors.white,
+        child: FittedBox(
+            fit: BoxFit.contain,
+            child: Image.asset('assets/images/movie.png', width: 100, height: 100,)
+        ),
     );
   }
 }
