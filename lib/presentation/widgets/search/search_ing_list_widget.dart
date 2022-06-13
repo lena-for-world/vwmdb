@@ -7,7 +7,7 @@ import '../../pages/movie/movie_detail_page.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
-class SearchingResultList extends ConsumerWidget {
+class SearchingList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +26,7 @@ class SearchingResultList extends ConsumerWidget {
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                        child: SearchingResultItem(data[index]),
+                        child: SearchingListItem(data[index]),
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) => const Divider(),
@@ -37,11 +37,11 @@ class SearchingResultList extends ConsumerWidget {
   }
 }
 
-class SearchingResultItem extends StatelessWidget {
+class SearchingListItem extends StatelessWidget {
 
   SearchedMovieModel searchedMovieModel;
 
-  SearchingResultItem(this.searchedMovieModel);
+  SearchingListItem(this.searchedMovieModel);
 
   @override
   Widget build(BuildContext context) {

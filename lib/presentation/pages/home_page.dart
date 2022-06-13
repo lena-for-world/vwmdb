@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vwmdb/presentation/pages/rate/my_page.dart';
 import 'package:vwmdb/presentation/pages/search/search_page.dart';
-import 'package:vwmdb/v_main_page.dart';
+import 'package:vwmdb/presentation/pages/movie/ranking_movie_page.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -12,13 +12,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     ProviderScope(
-      child: Home(),
+      child: HomePage(),
     ),
   );
 }
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   static const String _title = 'Flutter Code Sample';
 
@@ -41,9 +41,8 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidget extends State<HomeWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
-    MainPage(),
+    RankingMoviesPage(),
     SearchPage(),
     MyPage(),
   ];

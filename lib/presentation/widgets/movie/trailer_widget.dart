@@ -8,11 +8,11 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../viewmodels/movie/movie_viewmodel.dart';
 
-class YoutubeApp extends ConsumerWidget {
+class TrailerFrame extends ConsumerWidget {
 
   int movieId;
 
-  YoutubeApp(this.movieId);
+  TrailerFrame(this.movieId);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +28,7 @@ class YoutubeApp extends ConsumerWidget {
             scaffoldBackgroundColor: Colors.black,
           ),
           debugShowCheckedModeBanner: false,
-          home: YoutubeAppDemo(data),
+          home: TrailerPlayer(data),
         );;
       },
       loading: () => Center(child: CircularProgressIndicator()),
@@ -38,17 +38,17 @@ class YoutubeApp extends ConsumerWidget {
 }
 
 ///
-class YoutubeAppDemo extends StatefulWidget {
+class TrailerPlayer extends StatefulWidget {
 
   final String trailerId;
 
-  YoutubeAppDemo(this.trailerId);
+  TrailerPlayer(this.trailerId);
 
   @override
-  _YoutubeAppDemoState createState() => _YoutubeAppDemoState();
+  _TrailerPlayerState createState() => _TrailerPlayerState();
 }
 
-class _YoutubeAppDemoState extends State<YoutubeAppDemo> {
+class _TrailerPlayerState extends State<TrailerPlayer> {
   late YoutubePlayerController _controller;
 
   @override

@@ -17,7 +17,7 @@ final searchedProvider = Provider<SearchedMovieLocalUsecase>((ref) {
 
 final queryProvider = Provider<String>((ref) => '');
 
-class SearchedItemsListView extends ConsumerWidget {
+class SearchedList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,7 +29,7 @@ class SearchedItemsListView extends ConsumerWidget {
         itemCount: searchedList.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            child: SearchedItemView(searchedList[index]),
+            child: SearchedListItem(searchedList[index]),
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
@@ -37,11 +37,11 @@ class SearchedItemsListView extends ConsumerWidget {
   }
 }
 
-class SearchedItemView extends ConsumerWidget {
+class SearchedListItem extends ConsumerWidget {
 
   String item;
 
-  SearchedItemView(this.item);
+  SearchedListItem(this.item);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
