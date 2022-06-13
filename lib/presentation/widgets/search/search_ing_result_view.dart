@@ -20,8 +20,6 @@ class SearchingResultList extends ConsumerWidget {
         return data.length == 0
             ? Text('검색 결과가 없어요')
             :  ListView.separated(
-
-          physics: ClampingScrollPhysics(),
                   padding: const EdgeInsets.all(8),
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,

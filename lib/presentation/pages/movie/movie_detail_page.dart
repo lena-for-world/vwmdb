@@ -71,13 +71,14 @@ class SingleMoviePageDetail extends ConsumerWidget {
               child: Text('${singleMovie.title}'),
             ),
             Container(
-              width: constraints.maxWidth/2,
+              width: constraints.maxWidth,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget> [
                   Text('${singleMovie.year}'), Text('age'), Text('${singleMovie.runtime} minutes'),
                 ],
             ),),
+            SizedBox(height: 20,),
             Row(
               children: <Widget> [
                 Container(

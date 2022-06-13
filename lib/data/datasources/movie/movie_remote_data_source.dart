@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:vwmdb/core/network/dio.dart';
 
 import '../../../../core/network/api_key.dart';
 import '../../models/movie/boxoffice_movie_model.dart';
@@ -17,7 +18,7 @@ abstract class MovieRemoteDataSource {
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   MovieRemoteDataSourceImpl();
-  Dio dio = Dio();
+  Dio dio = DioImpl().getInstance;
 
   @override
   Future<List<LatestMovieModel>> getLatestMovies() async {

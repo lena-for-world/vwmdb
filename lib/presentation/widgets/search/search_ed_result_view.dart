@@ -23,7 +23,6 @@ class SearchedItemsListView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<String> searchedList = ref.watch(searchedProvider).getSearchedMoviesInLocal();
     return ListView.separated(
-      physics: NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(8),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,

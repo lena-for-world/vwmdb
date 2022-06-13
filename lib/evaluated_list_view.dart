@@ -37,13 +37,14 @@ class EvaluatedListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<RateModel> ratedList = ref.watch(rateProvider).checkAllMoviesIfInRatedList();
+    var size = MediaQuery.of(context).size;
     return GridView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: ratedList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 3/2,
+          childAspectRatio: (size.width/3) / ((size.height - 30) / 3),
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
         ),
@@ -68,8 +69,6 @@ class EvaluatedListItemView extends StatelessWidget {
             splashColor: Colors.white,
             highlightColor: Colors.white,
             child: Container(
-                width: constraints.maxWidth/3,
-                height: constraints.maxHeight,
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Column(
                   children: [
@@ -80,10 +79,12 @@ class EvaluatedListItemView extends StatelessWidget {
                       ),
                     ),
                     Container(
+                        height: constraints.maxHeight/3,
                       child: Column(
                         children: [
-                          Center(child: Text('${rateModel.title}',),),
-                          Text('${rateModel.stars!*2}'),
+                          Expanded(child: RichText(text: TextSpan( text: '${rateModel.title}', style: TextStyle(color: Colors.black, fontSize: 13),), maxLines: 2, overflow: TextOverflow.ellipsis, textDirection: TextDirection.ltr,),),
+                          //DefaultTextStyle(style: TextStyle(color: Colors.black, fontSize: 13), maxLines: 2, overflow: TextOverflow.ellipsis, softWrap: false, child: Text('${rateModel.title}',)),
+                          Text('${rateModel.stars!*2}', style: TextStyle(fontSize: 13),),
                         ],
                      )),
                   ],

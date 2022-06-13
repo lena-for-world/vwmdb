@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:vwmdb/core/network/dio.dart';
 
 import '../../../../core/network/api_key.dart';
 import '../../models/search/searched_movie_model.dart';
@@ -11,7 +12,7 @@ abstract class SearchedRemoteDatasource {
 
 class SearchedRemoteDatasourceImpl implements SearchedRemoteDatasource {
 
-  Dio dio = Dio();
+  Dio dio = DioImpl().getInstance;
 
   @override
   Future<List<SearchedMovieModel>> getSearchedResult(String input) async {

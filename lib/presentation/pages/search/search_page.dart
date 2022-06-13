@@ -21,32 +21,37 @@ class SearchPage extends ConsumerWidget {
         scaffoldBackgroundColor: darkBlue,
       ),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: //LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-          SingleChildScrollView(
-              child:ListView(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                children: [
-                  SearchInputArea(),
-                  SizedBox(height: 30),
-                  ref.read(searchState.state).state ? Text('검색하기') : Text('   최근 검색'),
-                  SizedBox(height: 20),
-                  Divider(thickness: 2,),
-                  SizedBox(height: 20,),
-                  // Container(
-                  //   height: constraints.maxHeight/5*3,
-                  //   child:
-                    //Expanded(child:
-                      ref.read(searchState.state).state
-                      ? SearchingResultList() : SearchedItemsListView(),
-                  //),
+      home: GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+              child:LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                return Container(
+                height: constraints.maxHeight,
+                child:Column(
+                  children: [
+                    SizedBox(height: 20),
+                    SearchInputArea(),
+                    SizedBox(height: 30),
+                    ref.read(searchState.state).state ? Text('검색하기') : Text('   최근 검색'),
+                    SizedBox(height: 20),
+                    Divider(thickness: 2,),
+                    SizedBox(height: 20,),
+                    Container(
+                      height: constraints.maxHeight/5*3,
+                       child:
+                      //Expanded(child:
+                        ref.read(searchState.state).state
+                        ? SearchingResultList() : SearchedItemsListView(),
                     //),
-            ],
-          )
+                      ),
+              ],
+            ));}),
         //}
-      ),
-    ));//);
+      ),),
+      ));//);
   }
 }
 
