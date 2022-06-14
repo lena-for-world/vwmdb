@@ -20,9 +20,12 @@ class WatchListItem extends ConsumerWidget {
             child: Column(
               children: <Widget> [
                 Container(
-                  width: 150,
+                  width: 140,
                   height: 180,
-                  child: Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}'),
+                  child: Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}',
+                  cacheWidth: 300,
+                    cacheHeight: 360,
+                  ),
                 ),
                 SizedBox(height: 10),
                 Text('${singleMovie.title}'),

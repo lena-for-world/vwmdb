@@ -56,7 +56,10 @@ class MakeLatestMovieItem extends StatelessWidget{
                             child: Row(
                               children: [
                                 ClipRect(
-                                    child: Image.network('https://image.tmdb.org/t/p/w500${movieModel.poster}')
+                                    child: Image.network('https://image.tmdb.org/t/p/w500${movieModel.poster}',
+                                      cacheWidth: 140,
+                                      cacheHeight: 210,
+                                    )
                                 ),
                               ],
                             ),

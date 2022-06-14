@@ -87,8 +87,14 @@ class SingleMoviePageDetail extends ConsumerWidget {
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: singleMovie.poster == 'null'
-                        ? Image.asset('assets/images/default.jpeg')
-                        : Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}'),
+                        ? Image.asset('assets/images/default.jpeg',
+                      cacheWidth: 140,
+                      cacheHeight: 210,
+                    )
+                        : Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}',
+                      cacheWidth: 140,
+                      cacheHeight: 210,
+                    ),
                   ),
 
                   padding: EdgeInsets.only(left: 20, right: 30, bottom: 10, top: 40),

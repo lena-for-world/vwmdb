@@ -50,7 +50,10 @@ class BoxOfficeListItem extends ConsumerWidget {
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: ClipRect(
-                     child: Image.network('https://image.tmdb.org/t/p/w500${boxofficeMovieModel.poster}'),
+                     child: Image.network('https://image.tmdb.org/t/p/w500${boxofficeMovieModel.poster}',
+                       cacheWidth: 200,
+                       cacheHeight: 300,
+                     ),
                     )
                   ),
                   padding: EdgeInsets.all(10),

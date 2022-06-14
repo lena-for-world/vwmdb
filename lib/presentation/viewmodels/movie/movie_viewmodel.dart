@@ -23,7 +23,7 @@ final singleMovieProvider = FutureProvider.family<SingleMovieModel, int> ((ref, 
   return singleMovie;
 });
 
-final boxofficeMoviesProvider = FutureProvider.autoDispose<List<BoxofficeMovieModel>> ((ref) async {
+final boxofficeMoviesProvider = FutureProvider<List<BoxofficeMovieModel>> ((ref) async {
   ref.watch(checkInWatchListStateProvider);
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
@@ -31,7 +31,7 @@ final boxofficeMoviesProvider = FutureProvider.autoDispose<List<BoxofficeMovieMo
   return boxofficeMoviesList;
 });
 
-final trailerIdProvider = FutureProvider.family<String, int> ((ref, id) async {
+final trailerIdProvider = FutureProvider.autoDispose.family<String, int> ((ref, id) async {
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
   return await LatestMovieUsecase(movieRepository).getTrailer(id);

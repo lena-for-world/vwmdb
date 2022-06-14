@@ -58,8 +58,14 @@ class SearchingListItem extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(right: 10),
                     child: searchedMovieModel.poster == 'null'
-                        ? Image.asset('assets/images/default.jpeg')
-                        : Image.network('https://image.tmdb.org/t/p/w500${searchedMovieModel.poster}'),
+                        ? Image.asset('assets/images/default.jpeg',
+                        cacheWidth: 93,
+                        cacheHeight: 140,
+                    )
+                        : Image.network('https://image.tmdb.org/t/p/w500${searchedMovieModel.poster}',
+                      cacheWidth: 93,
+                      cacheHeight: 140,
+                    ),
                   ),
 
                   Column(

@@ -23,7 +23,11 @@ class EvaluatedListItem extends StatelessWidget {
                   Container(
                     height: constraints.maxHeight/3*2,
                     child: ClipRect(
-                      child: Image.network('https://image.tmdb.org/t/p/w500${rateModel.poster}'),
+                      child: Image.network(
+                          'https://image.tmdb.org/t/p/w500${rateModel.poster}',
+                          cacheHeight: 222,
+                          cacheWidth: 148,
+                      ),
                     ),
                   ),
                   Container(

@@ -10,10 +10,14 @@ class WatchList extends ConsumerWidget {
     ref.watch(checkInWatchListStateProvider);
     List<WatchListItem> resultList = [];
     List<int> inWatchLists = ref.watch(rateProvider).checkAllMoviesIfInWatchList();
+    print(inWatchLists);
+    print("!!!!");
     inWatchLists.forEach((element) {
       var res = ref.read(singleMovieProvider(element));
+      print(res);
       res.when(
         data: (data) {
+          print(data);
           resultList.add(WatchListItem(data));
         },
         loading: () => CircularProgressIndicator(),

@@ -26,6 +26,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugInvertOversizedImages = true;
     return MaterialApp(
       title: _title,
       home: Splash(),
@@ -59,7 +60,7 @@ class _SplashState extends State<Splash> {
         color: Colors.white,
         child: FittedBox(
             fit: BoxFit.contain,
-            child: Image.asset('assets/images/movie.png', width: 100, height: 100,)
+            child: Image.asset('assets/images/movie.png', cacheWidth: 200, cacheHeight: 200),
         ),
     );
   }
