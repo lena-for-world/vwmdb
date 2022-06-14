@@ -91,7 +91,7 @@ class _HomeWidget extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
-      body: Center(
+      body: SafeArea(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(

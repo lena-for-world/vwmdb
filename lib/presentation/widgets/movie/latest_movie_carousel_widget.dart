@@ -17,7 +17,7 @@ class LatestMoviesCarouselWidget extends ConsumerWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           return Container(
             width: constraints.maxWidth,
-            height: constraints.maxHeight/2,
+            height: constraints.maxHeight,
             // carouselslider는 list<widget>을 받게 되어있음!
             child: CarouselSlider(
               options: CarouselOptions(
