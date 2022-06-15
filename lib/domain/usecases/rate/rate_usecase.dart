@@ -4,6 +4,7 @@ import '../../../data/models/rate/rate_model.dart';
 import '../../../data/repositories/rate/rate_repository.dart';
 import '../../entities/movie_entity.dart';
 
+//TODO: 유스케이스 기준 잡아서 변경하기
 class RateUsecase {
   RateRepository rateRepository;
 

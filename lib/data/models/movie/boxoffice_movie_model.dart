@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
-
 import '../../../domain/entities/movie_entity.dart';
 
-// TODO : movie를 model로
 class BoxofficeMovieModel extends Movie {
-  @required String? year;
+  final String? year;
 
   BoxofficeMovieModel({required int movieId, required String title, required String poster, required this.year})
       : super(movieId: movieId, title: title, poster: poster);
 
+  // TODO : null 처리하기
   factory BoxofficeMovieModel.fromJson(Map<String, dynamic> movie) {
     return BoxofficeMovieModel(
         movieId: movie['id'],

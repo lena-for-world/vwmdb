@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
-
 import '../../../domain/entities/movie_entity.dart';
 
 class LatestMovieModel extends Movie {
-  @required String? year;
+  final String? year;
 
   LatestMovieModel({required int movieId, required String title, required String poster, required this.year})
       : super(movieId: movieId, title: title, poster: poster);

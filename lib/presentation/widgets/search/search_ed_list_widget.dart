@@ -8,20 +8,13 @@ import '../../../domain/usecases/search/searched_movie_local_usecase.dart';
 import '../../pages/search/search_page.dart';
 import '../../viewmodels/search/search_viewmodel.dart';
 
-final searchedProvider = Provider<SearchedMovieLocalUsecase>((ref) {
-  SearchedMovieLocalSource searchedMovieLocalSource = SearchedMovieLocalSourceImpl(Hive.box('myMovies'));
-  SearchedMovieLocalRepository searchedMovieLocalRepository = SearchedMovieLocalRepositoryImpl(searchedMovieLocalSource);
-  SearchedMovieLocalUsecase searchedMovieLocalUsecase = SearchedMovieLocalUsecase(searchedMovieLocalRepository);
-  return searchedMovieLocalUsecase;
-});
-
 final queryProvider = Provider<String>((ref) => '');
 
 class SearchedList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<String> searchedList = ref.watch(searchedProvider).getSearchedMoviesInLocal();
+    List<String> searchedList = ref.watch(searchedHistoryProvider).getSearchedMoviesInLocal(); // TODO : viewmodel 안으로
     return ListView.separated(
         padding: const EdgeInsets.all(8),
         scrollDirection: Axis.vertical,

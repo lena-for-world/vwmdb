@@ -1,12 +1,12 @@
 import '../../../domain/entities/movie_entity.dart';
 
 class SingleMovieModel extends Movie {
-  String overview;
-  String year;
-  int runtime;
-  double voteAverage;
-  int voteCount;
-  List<String> genres;
+  final String overview;
+  final String year;
+  final int runtime;
+  final double voteAverage;
+  final int voteCount;
+  final List<String> genres;
 
   SingleMovieModel({
     required int movieId,

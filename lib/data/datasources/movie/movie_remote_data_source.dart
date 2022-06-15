@@ -34,6 +34,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
           LatestMovieModel.fromJson(movie)
       )
     });
+    // list -> map
     return latestMovieModels;
   }
 

@@ -12,9 +12,9 @@ import '../../../domain/usecases/rate/rate_usecase.dart';
 // 영화 하나가 토글될때마다 상태가 변하는데, 이 프로바이더를 모든 영화들이 공유하기 때문에
 // int 증가 방식으로 변화를 체크했음
 // bool 방식으로 상태변화를 체크할 수 없었음 상태가 고작 2가지라서
-final checkInWatchListStateProvider = StateProvider<int>((ref) => 0);
+final checkInWatchListStateProvider = StateProvider.autoDispose<int>((ref) => 0);
 
-final rateProvider = Provider<RateUsecase>((ref) {
+final rateProvider = Provider.autoDispose<RateUsecase>((ref) {
   RateLocalSource rateLocalSource = RateLocalSourceImpl(Hive.box('myMovies'));
   RateRepository rateRepository = RateRepositoryImpl(rateLocalSource);
   RateUsecase rateUsecase = RateUsecase(rateRepository);

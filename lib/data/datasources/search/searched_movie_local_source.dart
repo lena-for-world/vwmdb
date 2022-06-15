@@ -13,18 +13,16 @@ class SearchedMovieLocalSourceImpl implements SearchedMovieLocalSource {
 
   SearchedMovieLocalSourceImpl(this.box);
 
+  // TODO : 체크할 필요 없는듯?
   @override
   void saveSearchedKeyInLocalStoreIfNotExists() {
-    print('sdfasfsfdfasfsfsfsaddddd1!!!!');
-    print(box.containsKey(boxKey));
-    print(box.get(boxKey).runtimeType);
-    print(box.get(boxKey));
     if(!box.containsKey(boxKey)) {
-      List<String> searchedlist = [];
+      List<String>? searchedlist;
       box.put(boxKey, searchedlist);
     }
   }
 
+  // TODO : default value 확인
   @override
   List<String> getAllSearchedItems() {
     print(box.get(boxKey).runtimeType);

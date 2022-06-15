@@ -109,7 +109,13 @@ class MakeLatestMovieItem extends StatelessWidget{
                                 await showDialog(
                                     context: context,
                                     builder: (context) {
-                                      return TrailerFrame(movieModel.movieId);
+                                      return Center(
+                                          child: Container(
+                                            child:TrailerFrame(movieModel.movieId),
+                                              width: constraints.maxWidth,
+                                              height: constraints.maxWidth/1.9,
+                                          ),
+                                      );
                                     }
                                 );
                               },

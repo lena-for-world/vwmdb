@@ -49,7 +49,7 @@ class SearchInputArea extends ConsumerWidget {
                   child: Text('검색'),
                   onPressed: () {
                     // 검색 키워드 저장
-                    ref.read(searchedProvider).saveSearchedMovieInLocal(inputText);
+                    ref.read(searchedHistoryProvider).saveSearchedMovieInLocal(inputText);
                     ref.read(searchState.state).state = false;
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsPage(inputText)));
                   }),

@@ -9,21 +9,29 @@ import '../../../domain/usecases/movie/latest_movie_usecase.dart';
 import '../../../domain/usecases/movie/single_movie_usecase.dart';
 import '../rate/rate_viewmodel.dart';
 
-final latestMoviesProvider = FutureProvider<List<LatestMovieModel>> ((ref) async {
+// final refreshMainProvider = FutureProvider<void>((ref) async {
+// MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
+//     MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
+// await LatestMovieUsecase(movieRepository).getLatestMovies();
+// });
+
+final latestMoviesProvider = FutureProvider.autoDispose<List<LatestMovieModel>> ((ref) async {
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
   final latestMoviesList = await LatestMovieUsecase(movieRepository).getLatestMovies();
   return latestMoviesList;
 });
 
-final singleMovieProvider = FutureProvider.family<SingleMovieModel, int> ((ref, movieId) async {
+final singleMovieProvider = FutureProvider.autoDispose.family<SingleMovieModel, int> ((ref, movieId) async {
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
   final singleMovie = await SingleMovieUsecase(movieRepository).getSingleMovieDetail(movieId);
   return singleMovie;
 });
 
-final boxofficeMoviesProvider = FutureProvider<List<BoxofficeMovieModel>> ((ref) async {
+// boxofficeMoviesProvider를 watch하는 위젯이 있음. 그래서 checkInWatchListStateProvider는 autoDispose가 걸려있어도
+// 계속 listen되고 있는상태이므로 dispose 안 됨. 만약 boxofficeMoviesProvider를 read하고 있었다면 dispose됐을 것
+final boxofficeMoviesProvider = FutureProvider.autoDispose<List<BoxofficeMovieModel>> ((ref) async {
   ref.watch(checkInWatchListStateProvider);
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
