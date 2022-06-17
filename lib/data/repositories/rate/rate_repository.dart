@@ -4,7 +4,6 @@ import '../../datasources/rate/rate_local_source.dart';
 import '../../models/rate/rate_model.dart';
 
 abstract class RateRepository {
-  bool getIfMovieInLocalStore(int movieId);
   void postCheckOrUncheckMovieInWatchList(int movieId);
   bool getIfMovieRated(int moviedId);
   bool getIfInWatchList(int movieId);
@@ -21,11 +20,6 @@ class RateRepositoryImpl implements RateRepository {
   RateLocalSource rateLocalSource;
 
   RateRepositoryImpl(this.rateLocalSource);
-
-  @override
-  bool getIfMovieInLocalStore(int movieId) {
-    return rateLocalSource.getIfMovieInLocalStore(movieId);
-  }
 
   @override
   void deleteMovieRated(int movieId) {

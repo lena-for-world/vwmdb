@@ -5,7 +5,6 @@ import '../../../domain/entities/movie_entity.dart';
 import '../../models/rate/rate_model.dart';
 
 abstract class RateLocalSource {
-  bool getIfMovieInLocalStore(int movieId);
   void postCheckOrUncheckMovieInWatchList(int movieId);
   bool getIfMovieRated(int moviedId);
   double getMovieRated(int movieId);
@@ -25,14 +24,6 @@ class RateLocalSourceImpl implements RateLocalSource {
   RateLocalSourceImpl(this.box);
 
   @override
-  bool getIfMovieInLocalStore(int movieId) {
-    if(!box.containsKey(movieId)) {
-      return false;
-    }
-    return true;
-  }
-
-  @override
   void deleteMovieRated(int movieId) {
     RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
     rateModel.stars = null;
@@ -41,6 +32,9 @@ class RateLocalSourceImpl implements RateLocalSource {
 
   @override
   bool getIfMovieRated(int movieId) {
+    if(!box.containsKey(movieId)) {
+      return false;
+    }
     RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
     if(rateModel.stars != null) {
       return true;
@@ -75,6 +69,9 @@ class RateLocalSourceImpl implements RateLocalSource {
 
   @override
   bool getIfInWatchList(int movieId) {
+    if(!box.containsKey(movieId)) {
+      return false;
+    }
     RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
     if(rateModel.watchOrNot == null || rateModel.watchOrNot == false) {
       return false;
@@ -85,8 +82,10 @@ class RateLocalSourceImpl implements RateLocalSource {
 
   @override
   void saveMovieIn(Movie model) {
-    RateModel rateModel = RateModel(movieId: model.movieId, title: model.title, poster: model.poster);
-    box.put(model.movieId, json.encode(rateModel));
+    if(!box.containsKey(model.movieId)) {
+      RateModel rateModel = RateModel(movieId: model.movieId, title: model.title, poster: model.poster);
+      box.put(model.movieId, json.encode(rateModel));
+    }
   }
 
   @override
@@ -96,6 +95,9 @@ class RateLocalSourceImpl implements RateLocalSource {
 
   @override
   bool getIfInRatedList(int movieId) {
+    if(!box.containsKey(movieId)) {
+      return false;
+    }
     RateModel rateModel = RateModel.fromJson(json.decode(box.get(movieId)));
     if(rateModel.stars == null || rateModel.stars == 0) {
       return false;

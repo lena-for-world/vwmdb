@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../data/models/movie/boxoffice_movie_model.dart';
 import '../../../data/models/movie/single_movie_model.dart';
 import '../../viewmodels/rate/rate_viewmodel.dart';
+import '../../viewmodels/rate/watchlist_viewmodel.dart';
 import '../rate/rating_bar_widget.dart';
 import '../../pages/movie/movie_detail_page.dart';
 import '../../viewmodels/movie/movie_viewmodel.dart';

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/network/poster.dart';
 import '../../../data/models/movie/single_movie_model.dart';
 import '../../pages/movie/movie_detail_page.dart';
 import '../../viewmodels/rate/rate_viewmodel.dart';
+import '../../viewmodels/rate/watchlist_viewmodel.dart';
 
 class WatchListItem extends ConsumerWidget {
 
@@ -21,7 +23,11 @@ class WatchListItem extends ConsumerWidget {
                 Container(
                   width: 140,
                   height: 180,
-                  child: Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}',
+                  child: singleMovie.poster == defaultPoster
+                      ? Image.asset(defaultPoster,
+                    cacheHeight: 222,
+                    cacheWidth: 148,
+                  ) : Image.network('https://image.tmdb.org/t/p/w500/${singleMovie.poster}',
                   cacheWidth: 300,
                     cacheHeight: 360,
                   ),

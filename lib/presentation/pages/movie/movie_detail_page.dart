@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vwmdb/core/network/poster.dart';
 import '../../../data/models/movie/single_movie_model.dart';
 import '../../viewmodels/movie/movie_viewmodel.dart';
 import '../../viewmodels/rate/rate_viewmodel.dart';
+import '../../viewmodels/rate/watchlist_viewmodel.dart';
 import '../../widgets/rate/rating_bar_widget.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
@@ -86,8 +88,8 @@ class SingleMoviePageDetail extends ConsumerWidget {
                   height: 240,
                   child: FittedBox(
                     fit: BoxFit.contain,
-                    child: singleMovie.poster == 'null'
-                        ? Image.asset('assets/images/default.jpeg',
+                    child: singleMovie.poster == defaultPoster
+                        ? Image.asset(defaultPoster,
                       cacheWidth: 140,
                       cacheHeight: 210,
                     )

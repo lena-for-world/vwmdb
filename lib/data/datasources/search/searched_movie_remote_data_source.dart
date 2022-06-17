@@ -28,9 +28,10 @@ class SearchedRemoteDatasourceImpl implements SearchedRemoteDatasource {
     List<SearchedMovieModel> searchedMovieModels = [];
     movieJson.forEach((movie) {
       if(movie["media_type"] == "movie") {
-        searchedMovieModels.add(
-            SearchedMovieModel.fromJson(movie)
-        );
+        SearchedMovieModel convertedModel = SearchedMovieModel.fromJson(movie);
+        if(convertedModel.movieId != null) {
+          searchedMovieModels.add(convertedModel);
+        }
       }
     });
     return searchedMovieModels;

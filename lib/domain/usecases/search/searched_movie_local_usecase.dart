@@ -6,12 +6,10 @@ class SearchedMovieLocalUsecase {
   SearchedMovieLocalUsecase(this.searchedMovieLocalRepository);
 
   List<String> getSearchedMoviesInLocal() {
-    searchedMovieLocalRepository.saveSearchedKeyInLocalStoreIfNotExists();
     return searchedMovieLocalRepository.getAllSearchedItems();
   }
 
   void saveSearchedMovieInLocal(String input) {
-    searchedMovieLocalRepository.saveSearchedKeyInLocalStoreIfNotExists();
     searchedMovieLocalRepository.saveSearchedItem(input);
   }
 }

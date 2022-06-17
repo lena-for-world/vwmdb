@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vwmdb/presentation/pages/movie/movie_detail_page.dart';
 
+import '../../../core/network/poster.dart';
 import '../../../data/models/rate/rate_model.dart';
 
 class EvaluatedListItem extends StatelessWidget {
@@ -23,7 +24,11 @@ class EvaluatedListItem extends StatelessWidget {
                   Container(
                     height: constraints.maxHeight/3*2,
                     child: ClipRect(
-                      child: Image.network(
+                      child: rateModel.poster == defaultPoster
+                          ? Image.asset(defaultPoster,
+                        cacheHeight: 222,
+                        cacheWidth: 148,
+                      ) : Image.network(
                           'https://image.tmdb.org/t/p/w500${rateModel.poster}',
                           cacheHeight: 222,
                           cacheWidth: 148,

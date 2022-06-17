@@ -2,7 +2,6 @@
 import '../../datasources/search/searched_movie_local_source.dart';
 
 abstract class SearchedMovieLocalRepository {
-  void saveSearchedKeyInLocalStoreIfNotExists();
   List<String> getAllSearchedItems();
   void saveSearchedItem(String input);
 }
@@ -22,10 +21,4 @@ class SearchedMovieLocalRepositoryImpl implements SearchedMovieLocalRepository {
   void saveSearchedItem(String input) {
     searchedMovieLocalSource.saveSearchedItem(input);
   }
-
-  @override
-  void saveSearchedKeyInLocalStoreIfNotExists() {
-    searchedMovieLocalSource.saveSearchedKeyInLocalStoreIfNotExists();
-  }
-
 }

@@ -17,8 +17,7 @@ final rateProvider = Provider.autoDispose<RateUsecase>((ref) {
 
 final postMovieRatingProvider = Provider.autoDispose.family<void, RateSaver>((ref, toRating) {
   RateUsecase rateUsecase = ref.watch(rateProvider);
-  rateUsecase.saveMovieIfNotInLocalStore(toRating.movie);
-  rateUsecase.postMovieRating(toRating.movie.movieId, toRating.rating);
+  rateUsecase.postMovieRating(toRating.movie, toRating.rating);
   ref.refresh(rateProvider);
 });
 
@@ -31,23 +30,6 @@ final deleteMovieRatingProvider = Provider.autoDispose.family<void, int>((ref, m
 final ratedStarsProvider = Provider.autoDispose.family<double?, int>((ref, movieId) {
   RateUsecase rateUsecase = ref.watch(rateProvider);
   return rateUsecase.getMovieRated(movieId);
-});
-
-final ifInWatchListProvider = Provider.autoDispose.family<bool, int>((ref, movieId) {
-  RateUsecase rateUsecase = ref.watch(rateProvider);
-  return rateUsecase.getIfMovieInWatchList(movieId);
-});
-
-final postMovieToWatchListProvider = Provider.autoDispose.family<void, Movie>((ref, movie) {
-  RateUsecase rateUsecase = ref.watch(rateProvider);
-  rateUsecase.saveMovieIfNotInLocalStore(movie);
-  rateUsecase.postCheckOrUncheckMovieInWatchList(movie.movieId);
-  ref.refresh(rateProvider);
-});
-
-final moviesInWatchlistProvider = Provider.autoDispose<List<int>>((ref) {
-  RateUsecase rateUsecase = ref.watch(rateProvider);
-  return rateUsecase.checkAllMoviesIfInWatchList();
 });
 
 final ratedListProvider = Provider.autoDispose<List<RateModel>>((ref) {

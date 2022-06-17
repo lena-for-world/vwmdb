@@ -1,3 +1,5 @@
+import 'package:vwmdb/core/network/poster.dart';
+
 import '../../../domain/entities/movie_entity.dart';
 
 class SearchedMovieModel extends Movie {
@@ -5,11 +7,10 @@ class SearchedMovieModel extends Movie {
       : super(movieId: movieId, title: title, poster: poster);
 
   factory SearchedMovieModel.fromJson(Map<String, dynamic> movie) {
-    // TODO : id도 널처리 ㄱ
     return SearchedMovieModel(
-        movieId: movie['id'],
+        movieId: movie['id'] ?? null,
         title: movie['original_title'] ?? '제목이 없습니다',
-        poster: movie['poster_path'] ?? 'null',
+        poster: movie['poster_path'] ?? defaultPoster,
     );
   }
 }

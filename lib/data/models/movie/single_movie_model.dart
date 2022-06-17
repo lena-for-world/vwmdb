@@ -1,3 +1,5 @@
+import 'package:vwmdb/core/network/poster.dart';
+
 import '../../../domain/entities/movie_entity.dart';
 
 class SingleMovieModel extends Movie {
@@ -27,10 +29,10 @@ class SingleMovieModel extends Movie {
       genres.add(genre['name'])
     });
     return SingleMovieModel(
-      movieId: json['id'],
+      movieId: json['id'] ?? 0,
       title: json['original_title'],
       overview: json['overview'] ?? 'null',
-      poster: json['poster_path'] ?? 'null',
+      poster: json['poster_path'] ?? defaultPoster,
       year: json['release_date'] ?? 'null',
       runtime: json['runtime'] ?? 'null',
       voteAverage: json['vote_average'] ?? 'null',

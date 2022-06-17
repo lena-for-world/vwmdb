@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vwmdb/presentation/widgets/rate/watch_list_item_widget.dart';
 import '../../viewmodels/movie/movie_viewmodel.dart';
 import '../../viewmodels/rate/rate_viewmodel.dart';
+import '../../viewmodels/rate/watchlist_viewmodel.dart';
 
 class WatchList extends ConsumerWidget {
   @override

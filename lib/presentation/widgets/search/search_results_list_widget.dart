@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vwmdb/core/network/poster.dart';
 import 'package:vwmdb/presentation/pages/movie/movie_detail_page.dart';
 import 'package:vwmdb/presentation/viewmodels/search/search_viewmodel.dart';
 import '../../../data/models/search/searched_movie_model.dart';
@@ -53,8 +54,8 @@ class SearchedResultItem extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.only(right: 10),
-                  child: searchedMovieModel.poster == 'null'
-                      ? Image.asset('assets/images/default.jpeg',
+                  child: searchedMovieModel.poster == defaultPoster
+                      ? Image.asset(searchedMovieModel.poster,
                     cacheWidth: 93,
                     cacheHeight: 140,
                   )

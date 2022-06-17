@@ -1,3 +1,5 @@
+import 'package:vwmdb/core/network/poster.dart';
+
 import '../../../domain/entities/movie_entity.dart';
 
 class LatestMovieModel extends Movie {
@@ -8,10 +10,10 @@ class LatestMovieModel extends Movie {
 
   factory LatestMovieModel.fromJson(Map<String, dynamic> movie) {
     return LatestMovieModel(
-        movieId: movie['id'],
-        title: movie['original_title'],
-        poster: movie['poster_path'],
-        year: movie['release_date'],
+        movieId: movie['id'] ?? 0,
+        title: movie['original_title'] ?? '제목이 없습니다',
+        poster: movie['poster_path'] ?? defaultPoster,
+        year: movie['release_date'] ?? 'null',
     );
   }
 }

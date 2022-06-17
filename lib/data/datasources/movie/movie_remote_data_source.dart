@@ -29,10 +29,11 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   List<LatestMovieModel> makeLatestMovieModels(List<dynamic> movieJson) {
     List<LatestMovieModel> latestMovieModels = [];
-    movieJson.forEach((movie) => {
-      latestMovieModels.add(
-          LatestMovieModel.fromJson(movie)
-      )
+    movieJson.forEach((movie) {
+      LatestMovieModel converted = LatestMovieModel.fromJson(movie);
+      if(converted.movieId != 0) {
+        latestMovieModels.add(converted);
+      }
     });
     // list -> map
     return latestMovieModels;
@@ -58,10 +59,11 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   List<BoxofficeMovieModel> makeBoxofficeMovieModels(List<dynamic> movieJson) {
     List<BoxofficeMovieModel> boxofficeMovieModels = [];
-    movieJson.forEach((movie) => {
-      boxofficeMovieModels.add(
-          BoxofficeMovieModel.fromJson(movie)
-      )
+    movieJson.forEach((movie) {
+      BoxofficeMovieModel converted = BoxofficeMovieModel.fromJson(movie);
+      if(converted.movieId != 0) {
+        boxofficeMovieModels.add(converted);
+      }
     });
     return boxofficeMovieModels;
   }
