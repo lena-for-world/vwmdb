@@ -56,8 +56,8 @@ class SingleMoviePageDetail extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(starStateProvider);
     ref.watch(checkInWatchListStateProvider);
-    double? movieRatedByMe = ref.watch(rateProvider).getMovieRated(singleMovie.movieId);
-    bool ifInWatchList = ref.read(rateProvider).getIfMovieInWatchList(singleMovie.movieId);
+    double? movieRatedByMe = ref.watch(ratedStarsProvider(singleMovie.movieId));
+    bool ifInWatchList = ref.read(ifInWatchListProvider(singleMovie.movieId));
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Container(
@@ -129,8 +129,7 @@ class SingleMoviePageDetail extends ConsumerWidget {
                   ],
                 ),
                 onPressed: () {
-                  ref.read(rateProvider).saveMovieIfNotInLocalStore(singleMovie);
-                  ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(singleMovie.movieId);
+                  ref.read(postMovieToWatchListProvider(singleMovie));
                   ref.read(checkInWatchListStateProvider.state).state++;
                 },
               ),

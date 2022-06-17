@@ -9,18 +9,15 @@ class WatchList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(checkInWatchListStateProvider);
     List<WatchListItem> resultList = [];
-    List<int> inWatchLists = ref.watch(rateProvider).checkAllMoviesIfInWatchList();
-    print(inWatchLists);
+    List<int> inWatchLists = ref.watch(moviesInWatchlistProvider);
     inWatchLists.forEach((element) {
       // read일때는 boxoffice에 안 들어있는 영화들에 대해서는 바로 못읽어오고 로딩상태이다가,
       // 텀을 좀 두고 들어가면 영화가 표출됨
       // watch로 변경하면 텀 안 두고 바로 들어가도 내가 나중에 볼 영화로 등록해놓은 모든 영화들이 표출됨
       // 콜백 상황 또는 빌드 리턴 내부가 아닌 모든 경우에 꼭 watch를 사용해야할 이유가 되는 것 같은데, 이유가 궁금함
       var fetchedResult = ref.watch(singleMovieProvider(element));
-      print(fetchedResult);
       fetchedResult.when(
         data: (data) {
-          print(data);
           resultList.add(WatchListItem(data));
         },
         loading: () => CircularProgressIndicator(),

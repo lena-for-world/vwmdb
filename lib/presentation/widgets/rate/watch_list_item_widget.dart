@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/movie/single_movie_model.dart';
+import '../../pages/movie/movie_detail_page.dart';
 import '../../viewmodels/rate/rate_viewmodel.dart';
 
 class WatchListItem extends ConsumerWidget {
 
-  late int movieId;
   SingleMovieModel singleMovie;
   WatchListItem(this.singleMovie);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    movieId = singleMovie.movieId;
     return Stack(
       children: <Widget> [
         TextButton(
@@ -32,13 +31,18 @@ class WatchListItem extends ConsumerWidget {
               ],
             ),
           ),
-          onPressed: () {print('sazz');},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder:
+                (context) => SingleMoviePage(singleMovie.movieId)
+            )
+            );
+          },
         ),
         IconButton (
           icon: Icon(Icons.check),
           iconSize: 20,
           onPressed: () {
-            ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(movieId);
+            ref.read(postMovieToWatchListProvider(singleMovie));
             ref.read(checkInWatchListStateProvider.state).state++;
           },
         )

@@ -24,7 +24,7 @@ class BoxOfficeList extends ConsumerWidget {
               padding: const EdgeInsets.all(5),
               itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
-                bool isInWatchList = ref.read(rateProvider).getIfMovieInWatchList(data[index].movieId);
+                bool isInWatchList = ref.read(ifInWatchListProvider(data[index].movieId));
                 return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
                   return Container(
                     child: BoxOfficeListItem(data[index], index, isInWatchList),

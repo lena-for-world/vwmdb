@@ -9,7 +9,7 @@ class EvaluatedList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<RateModel> ratedList = ref.watch(rateProvider).checkAllMoviesIfInRatedList();
+    List<RateModel> ratedList = ref.watch(ratedListProvider);
     var size = MediaQuery.of(context).size;
     return GridView.builder(
       scrollDirection: Axis.vertical,

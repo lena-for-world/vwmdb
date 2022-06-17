@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
-
-import '../../../data/datasources/search/searched_movie_local_source.dart';
-import '../../../data/repositories/search/searched_movie_local_repository.dart';
-import '../../../domain/usecases/search/searched_movie_local_usecase.dart';
-import '../../pages/search/search_page.dart';
 import '../../viewmodels/search/search_viewmodel.dart';
 
 final queryProvider = Provider<String>((ref) => '');
@@ -14,7 +8,7 @@ class SearchedList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<String> searchedList = ref.watch(searchedHistoryProvider).getSearchedMoviesInLocal(); // TODO : viewmodel 안으로
+    List<String> searchedList = ref.read(searchedHistoryProvider);
     return ListView.separated(
         padding: const EdgeInsets.all(8),
         scrollDirection: Axis.vertical,
@@ -52,10 +46,10 @@ class SearchedListItem extends ConsumerWidget {
       onTap: () {
         ref.read(searchTrackProvider.state).state = item;
         print(
-            ref.read(searchTrackProvider.state).state = item);
-        print(ref.read(searchState.state).state);
+            'ed1 : ${ref.read(searchTrackProvider.state).state = item}');
+        print('ed2 : ${ref.read(searchState.state).state}');
         ref.read(searchState.state).state = true;
-        print(ref.read(searchState.state).state);
+        print('ed3 : ${ref.read(searchState.state).state}');
       },
     );
   }

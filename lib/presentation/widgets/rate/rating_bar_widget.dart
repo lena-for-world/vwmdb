@@ -16,7 +16,7 @@ class StarsButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(starStateProvider);
-    double? starRated = ref.watch(rateProvider).getMovieRated(movie.movieId);
+    double? starRated = ref.watch(ratedStarsProvider(movie.movieId));
     return IconButton(
       icon: starRated == null ? Icon(Icons.star) : Icon(Icons.star),
       color: starRated == null ? Colors.white : Colors.yellow,
@@ -40,7 +40,6 @@ class StarRates extends ConsumerWidget {
   StarRates(this.movie);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: implement build
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return Container(
@@ -78,7 +77,7 @@ class StarRates extends ConsumerWidget {
   }
   Widget _ratingBar(WidgetRef ref) {
 
-    double? ratedStars = ref.watch(rateProvider).getMovieRated(movie.movieId);
+    double? ratedStars = ref.watch(ratedStarsProvider(movie.movieId));
 
     return RatingBar.builder(
           // box에서 까서 가져오는걸로 바꿀 건데 일단 임의 데이터 넣어둠
@@ -96,11 +95,10 @@ class StarRates extends ConsumerWidget {
           ),
           onRatingUpdate: (rating) {
             if(rating > 0) {
-              ref.read(rateProvider).saveMovieIfNotInLocalStore(movie);
-              ref.read(rateProvider).postMovieRating(movie.movieId, rating);
+              ref.read(postMovieRatingProvider(RateSaver(movie, rating)));
               print(rating);
             } else {
-              ref.read(rateProvider).deleteMovieRated(movie.movieId);
+              ref.read(deleteMovieRatingProvider(movie.movieId));
               print(rating);
             }
             ref.read(starStateProvider.state).state = !ref.read(starStateProvider.state).state;

@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vwmdb/presentation/widgets/search/search_ing_list_widget.dart';
 
+import '../../viewmodels/search/search_viewmodel.dart';
 import '../../widgets/search/search_input_area_widget.dart';
 import '../../widgets/search/search_ed_list_widget.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
-final searchState = StateProvider<bool>((ref) => false);
-
 class SearchPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print(ref.read(searchState.state).state);
     ref.watch(searchState);
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
@@ -29,7 +27,7 @@ class SearchPage extends ConsumerWidget {
                 builder: (BuildContext context, BoxConstraints constraints) {
                 return Container(
                 height: constraints.maxHeight,
-                child:SingleChildScrollView(
+                    child: SingleChildScrollView(
                   child: Column(
                     children: [
                       SizedBox(height: 20),
@@ -41,15 +39,16 @@ class SearchPage extends ConsumerWidget {
                       SizedBox(height: 20,),
                       Container(
                         height: constraints.maxHeight/5*3,
-                         child:
+                        child:
                         //Expanded(child:
-                          ref.read(searchState.state).state
-                          ? SearchingList() : SearchedList(),
-                      //),
-                        ),
+                        ref.read(searchState.state).state
+                            ? SearchingList() : SearchedList(),
+                        //),
+                      ),
               ],
+                  ),
             ),
-                ));}),
+                    );}),
         //}
       ),),
       ));//);

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../pages/search/search_page.dart';
 import '../../pages/search/search_results_page.dart';
 import '../../viewmodels/search/search_viewmodel.dart';
-import '../../widgets/search/search_ed_list_widget.dart';
 
 class SearchInputArea extends ConsumerWidget {
 
@@ -49,7 +47,7 @@ class SearchInputArea extends ConsumerWidget {
                   child: Text('검색'),
                   onPressed: () {
                     // 검색 키워드 저장
-                    ref.read(searchedHistoryProvider).saveSearchedMovieInLocal(inputText);
+                    ref.read(saveSearchedMovieProvider(inputText));
                     ref.read(searchState.state).state = false;
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsPage(inputText)));
                   }),

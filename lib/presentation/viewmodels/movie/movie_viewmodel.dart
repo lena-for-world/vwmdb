@@ -15,14 +15,14 @@ import '../rate/rate_viewmodel.dart';
 // await LatestMovieUsecase(movieRepository).getLatestMovies();
 // });
 
-final latestMoviesProvider = FutureProvider.autoDispose<List<LatestMovieModel>> ((ref) async {
+final latestMoviesProvider = FutureProvider<List<LatestMovieModel>> ((ref) async {
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
   final latestMoviesList = await LatestMovieUsecase(movieRepository).getLatestMovies();
   return latestMoviesList;
 });
 
-final singleMovieProvider = FutureProvider.autoDispose.family<SingleMovieModel, int> ((ref, movieId) async {
+final singleMovieProvider = FutureProvider.family<SingleMovieModel, int> ((ref, movieId) async {
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
   final singleMovie = await SingleMovieUsecase(movieRepository).getSingleMovieDetail(movieId);
@@ -39,7 +39,7 @@ final boxofficeMoviesProvider = FutureProvider.autoDispose<List<BoxofficeMovieMo
   return boxofficeMoviesList;
 });
 
-final trailerIdProvider = FutureProvider.autoDispose.family<String, int> ((ref, id) async {
+final trailerIdProvider = FutureProvider.family<String, int> ((ref, id) async {
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
   return await LatestMovieUsecase(movieRepository).getTrailer(id);

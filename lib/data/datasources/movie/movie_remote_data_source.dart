@@ -56,8 +56,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     return makeBoxofficeMovieModels(movieJson);
   }
 
-  // TODO: get보다는 convert or make가 더 어울리는 이름같다 (ex) makeBoxofficeMovieModels
-
   List<BoxofficeMovieModel> makeBoxofficeMovieModels(List<dynamic> movieJson) {
     List<BoxofficeMovieModel> boxofficeMovieModels = [];
     movieJson.forEach((movie) => {
@@ -70,7 +68,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<SingleMovieModel> getSingleMovieDetail(int movieId) async {
-    // TODO: implement getSingleMovieDetail
     final movieResult = await dio.get('https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US');
     final jsonMovie = json.decode(movieResult.toString());
     return SingleMovieModel.fromJson(jsonMovie);

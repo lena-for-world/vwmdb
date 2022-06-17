@@ -18,7 +18,6 @@ class BoxOfficeListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     ref.watch(starStateProvider);
     AsyncValue<SingleMovieModel> movieRatedByOthersModel = ref.watch(singleMovieProvider(boxofficeMovieModel.movieId));
     double movieRatedByOthers = movieRatedByOthersModel.when(
@@ -26,7 +25,7 @@ class BoxOfficeListItem extends ConsumerWidget {
       loading: () => 0.0,
       error: (err, stack) => 0,
     );
-    double? movieRatedByMe = ref.watch(rateProvider).getMovieRated(boxofficeMovieModel.movieId);
+    double? movieRatedByMe = ref.watch(ratedStarsProvider(boxofficeMovieModel.movieId));
     return InkWell( // 누르면 영화 상세 페이지로 이동
     splashColor: Colors.white,
     highlightColor: Colors.black,
@@ -65,8 +64,7 @@ class BoxOfficeListItem extends ConsumerWidget {
                     onPressed: () {
                       // button toggle
                       // hive에 저장
-                      ref.read(rateProvider).saveMovieIfNotInLocalStore(boxofficeMovieModel);
-                      ref.read(rateProvider).postCheckOrUncheckMovieInWatchList(boxofficeMovieModel.movieId);
+                      ref.read(postMovieToWatchListProvider(boxofficeMovieModel));
                       ref.read(checkInWatchListStateProvider.state).state++; // int 증가로 리스트 변경하기, 아이콘은 리스트 재빌드되면서 알아서 잘 들어갈거라 변경해도 상관없음
                     },
                 ),

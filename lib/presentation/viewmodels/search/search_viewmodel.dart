@@ -11,7 +11,9 @@ import '../../../domain/usecases/search/searched_movie_usecase.dart';
 
 final searchTrackProvider = StateProvider<String>((ref) => '');
 
-final searchedResultProvider = FutureProvider.autoDispose.family<List<SearchedMovieModel>, String> ((ref, input) async {
+final searchState = StateProvider<bool>((ref) => false);
+
+final searchedResultProvider = FutureProvider.family<List<SearchedMovieModel>, String> ((ref, input) async {
   ref.watch(searchTrackProvider);
   SearchedRemoteDatasource searchedRemoteDatasource = SearchedRemoteDatasourceImpl();
   SearchedMovieRepository searchedMovieRepository = SearchedMovieRepositoryImpl(searchedRemoteDatasource);
@@ -19,9 +21,24 @@ final searchedResultProvider = FutureProvider.autoDispose.family<List<SearchedMo
   return await searchedMovieUsecase.getSearchedMovies(input);
 });
 
-final searchedHistoryProvider = Provider<SearchedMovieLocalUsecase>((ref) {
+final searchedLocalProvider = Provider<SearchedMovieLocalUsecase>((ref) {
   SearchedMovieLocalSource searchedMovieLocalSource = SearchedMovieLocalSourceImpl(Hive.box('myMovies'));
   SearchedMovieLocalRepository searchedMovieLocalRepository = SearchedMovieLocalRepositoryImpl(searchedMovieLocalSource);
-  SearchedMovieLocalUsecase searchedMovieLocalUsecase = SearchedMovieLocalUsecase(searchedMovieLocalRepository);
-  return searchedMovieLocalUsecase;
+  return SearchedMovieLocalUsecase(searchedMovieLocalRepository);
+});
+
+final searchedHistoryProvider = Provider<List<String>>((ref) {
+  SearchedMovieLocalUsecase searchedMovieLocalUsecase = ref.watch(searchedLocalProvider);
+ //  SearchedMovieLocalSource searchedMovieLocalSource = SearchedMovieLocalSourceImpl(Hive.box('myMovies'));
+ //  SearchedMovieLocalRepository searchedMovieLocalRepository = SearchedMovieLocalRepositoryImpl(searchedMovieLocalSource);
+ //  SearchedMovieLocalUsecase searchedMovieLocalUsecase = SearchedMovieLocalUsecase(searchedMovieLocalRepository);
+  return searchedMovieLocalUsecase.getSearchedMoviesInLocal();
+});
+
+final saveSearchedMovieProvider = Provider.family<void, String>((ref, input) {
+  SearchedMovieLocalUsecase searchedMovieLocalUsecase = ref.watch(searchedLocalProvider);
+  // SearchedMovieLocalSource searchedMovieLocalSource = SearchedMovieLocalSourceImpl(Hive.box('myMovies'));
+  // SearchedMovieLocalRepository searchedMovieLocalRepository = SearchedMovieLocalRepositoryImpl(searchedMovieLocalSource);
+  // SearchedMovieLocalUsecase searchedMovieLocalUsecase = SearchedMovieLocalUsecase(searchedMovieLocalRepository);
+  searchedMovieLocalUsecase.saveSearchedMovieInLocal(input);
 });

@@ -81,6 +81,11 @@ class _HomeWidget extends State<HomeWidget> {
     MyPage(),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
