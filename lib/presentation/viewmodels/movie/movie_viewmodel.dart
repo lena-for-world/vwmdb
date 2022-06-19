@@ -9,12 +9,6 @@ import '../../../domain/usecases/movie/latest_movie_usecase.dart';
 import '../../../domain/usecases/movie/single_movie_usecase.dart';
 import '../rate/rate_viewmodel.dart';
 
-// final refreshMainProvider = FutureProvider<void>((ref) async {
-// MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
-//     MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
-// await LatestMovieUsecase(movieRepository).getLatestMovies();
-// });
-
 final latestMoviesProvider = FutureProvider<List<LatestMovieModel>> ((ref) async {
   MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
@@ -44,3 +38,9 @@ final trailerIdProvider = FutureProvider.family<String, int> ((ref, id) async {
   MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
   return await LatestMovieUsecase(movieRepository).getTrailer(id);
 });
+
+// final refreshMainProvider = FutureProvider<void>((ref) async {
+// MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();
+//     MovieRepository movieRepository = MovieRepositoryImpl(movieRemoteDataSource);
+// await LatestMovieUsecase(movieRepository).getLatestMovies();
+// });

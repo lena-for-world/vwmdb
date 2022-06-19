@@ -27,16 +27,16 @@ void main() {
 
   test('get searched movies api result', () async {
     String str = '닥터 스트레';
-    var result = await dio!.get('https://api.themoviedb.org/3/search/multi?api_key=ebdee09f8577cf2e8727490069a1db3f&language=en-US&page=1&include_adult=false&query=${str}');
+    var result = await dio!.get('${API_SOURCE}/search/multi?api_key=ebdee09f8577cf2e8727490069a1db3f&language=en-US&page=1&include_adult=false&query=${str}');
     print('${result}');
     str = 'doc';
-    result = await dio!.get('https://api.themoviedb.org/3/search/multi?api_key=ebdee09f8577cf2e8727490069a1db3f&language=en-US&page=1&include_adult=false&query=${str}');
+    result = await dio!.get('${API_SOURCE}/search/multi?api_key=ebdee09f8577cf2e8727490069a1db3f&language=en-US&page=1&include_adult=false&query=${str}');
     print('\n${result}');
     str = 'doct';
-    result = await dio!.get('https://api.themoviedb.org/3/search/multi?api_key=ebdee09f8577cf2e8727490069a1db3f&language=en-US&page=1&include_adult=false&query=${str}');
+    result = await dio!.get('${API_SOURCE}/search/multi?api_key=ebdee09f8577cf2e8727490069a1db3f&language=en-US&page=1&include_adult=false&query=${str}');
     print('\n${result}\n');
     str = 'doctxxxxx';
-    result = await dio!.get('https://api.themoviedb.org/3/search/multi?api_key=ebdee09f8577cf2e8727490069a1db3f&language=en-US&page=1&include_adult=false&query=${str}');
+    result = await dio!.get('${API_SOURCE}/search/multi?api_key=ebdee09f8577cf2e8727490069a1db3f&language=en-US&page=1&include_adult=false&query=${str}');
     print('\n${result}\n');
   });
 

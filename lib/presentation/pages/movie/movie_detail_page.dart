@@ -6,6 +6,7 @@ import '../../viewmodels/movie/movie_viewmodel.dart';
 import '../../viewmodels/rate/rate_viewmodel.dart';
 import '../../viewmodels/rate/watchlist_viewmodel.dart';
 import '../../widgets/rate/rating_bar_widget.dart';
+import '../rate/review_page.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
@@ -154,6 +155,9 @@ class SingleMoviePageDetail extends ConsumerWidget {
                     Text('rating by me'),
                   ],
                 ),
+                IconButton(onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReviewPage(singleMovie.movieId)));
+                }, icon: Icon(Icons.reviews)),
               ],
             ),
           ],

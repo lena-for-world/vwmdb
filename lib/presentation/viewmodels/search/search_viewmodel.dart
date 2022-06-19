@@ -29,16 +29,10 @@ final searchedLocalProvider = Provider<SearchedMovieLocalUsecase>((ref) {
 
 final searchedHistoryProvider = Provider<List<String>>((ref) {
   SearchedMovieLocalUsecase searchedMovieLocalUsecase = ref.watch(searchedLocalProvider);
- //  SearchedMovieLocalSource searchedMovieLocalSource = SearchedMovieLocalSourceImpl(Hive.box('myMovies'));
- //  SearchedMovieLocalRepository searchedMovieLocalRepository = SearchedMovieLocalRepositoryImpl(searchedMovieLocalSource);
- //  SearchedMovieLocalUsecase searchedMovieLocalUsecase = SearchedMovieLocalUsecase(searchedMovieLocalRepository);
   return searchedMovieLocalUsecase.getSearchedMoviesInLocal();
 });
 
 final saveSearchedMovieProvider = Provider.family<void, String>((ref, input) {
   SearchedMovieLocalUsecase searchedMovieLocalUsecase = ref.watch(searchedLocalProvider);
-  // SearchedMovieLocalSource searchedMovieLocalSource = SearchedMovieLocalSourceImpl(Hive.box('myMovies'));
-  // SearchedMovieLocalRepository searchedMovieLocalRepository = SearchedMovieLocalRepositoryImpl(searchedMovieLocalSource);
-  // SearchedMovieLocalUsecase searchedMovieLocalUsecase = SearchedMovieLocalUsecase(searchedMovieLocalRepository);
   searchedMovieLocalUsecase.saveSearchedMovieInLocal(input);
 });

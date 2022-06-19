@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "305272884885",
+    "project_id": "vwmdb-b930c",
+    "storage_bucket": "vwmdb-b930c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305272884885:android:7e264eb6d1c6fc821b959c",
+        "android_client_info": {
+          "package_name": "com.example.vwmdb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305272884885-a2lmd58qc4rvr0ntf9v85kg11hmnjlne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk-ENnv4uuKH-X_i-sIkWbLmP12wlFNQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305272884885-a2lmd58qc4rvr0ntf9v85kg11hmnjlne.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "305272884885-goc6e1flq6lc1v5f012f69p1e8fpbtlm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vwmdb"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

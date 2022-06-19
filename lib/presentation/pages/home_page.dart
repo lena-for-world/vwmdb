@@ -7,11 +7,16 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vwmdb/presentation/pages/rate/my_page.dart';
 import 'package:vwmdb/presentation/pages/search/search_page.dart';
 import 'package:vwmdb/presentation/pages/movie/ranking_movie_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '../../firebase_options.dart';
 
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox('myMovies');
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     ProviderScope(
       child: HomePage(),

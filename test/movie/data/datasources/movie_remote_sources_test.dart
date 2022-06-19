@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:vwmdb/movie/data/datasources/movie/movie_remote_data_source.dart';
 import 'package:vwmdb/movie/data/models/movie/latest_movie_model.dart';
 import 'package:vwmdb/movie/data/repositories/movie/movie_repository.dart';
-import '../../../../lib/core/network/api_key.dart';
+import '../../../../lib/core/network/api.dart';
 
 class MockRemoteDatasource extends Mock implements MovieRemoteDataSource {}
 
@@ -31,7 +31,7 @@ void main() {
     });
 
     test('latest movies list API를 가져올 수 있다', () async {
-      final temp = await dio.get('https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=1');
+      final temp = await dio.get('${API_SOURCE}/movie/now_playing?api_key=${API_KEY}&page=1');
       final temp2 = json.decode(temp.toString());
       print(temp2);
       print(temp2.runtimeType);
@@ -48,7 +48,7 @@ void main() {
     });
 
     test('트레일러 url을 가져올 수 있다', () async {
-      final temp = await dio.get('https://api.themoviedb.org/3/movie/284052/videos?api_key=${API_KEY}&language=en-US');
+      final temp = await dio.get('${API_SOURCE}/movie/284052/videos?api_key=${API_KEY}&language=en-US');
       final temp2 = json.decode(temp.toString());
       print(temp2);
       print(temp2.runtimeType);
@@ -62,7 +62,7 @@ void main() {
     });
 
     test('박스오피스 api를 가져올 수 있다', () async{
-      final jsonResult = await dio.get('https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1');
+      final jsonResult = await dio.get('${API_SOURCE}/movie/popular?api_key=${API_KEY}&language=en-US&page=1');
       final result = json.decode(jsonResult.toString());
       print(result);
     });
