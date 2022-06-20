@@ -9,8 +9,8 @@ import 'package:vwmdb/presentation/widgets/movie/boxoffice_movie_list_widget.dar
 class RankingMoviesPage extends ConsumerWidget {
   Future<void> _testingRefresh(WidgetRef ref) async {
     print('test refresh');
-    ref.refresh(latestMoviesProvider);
-    ref.refresh(boxofficeMoviesProvider);
+    // ref.refresh(latestMoviesProvider);
+    // ref.refresh(boxofficeMoviesProvider);
   }
 
   @override

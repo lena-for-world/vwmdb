@@ -11,7 +11,7 @@ class LatestMoviesCarouselWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    AsyncValue<List<LatestMovieModel>> latestMovieModelList = ref.watch(latestMoviesProvider);
+    AsyncValue<List<LatestMovieModel>> latestMovieModelList = ref.watch(latestMoviesProvider);//ref.watch(movieViewModelProvider).latestMoviesList;
 
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
