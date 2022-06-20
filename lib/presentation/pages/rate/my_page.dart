@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vwmdb/presentation/pages/rate/review_list_page.dart';
 import 'evaluation_page.dart';
 import '../../widgets/rate/watch_list_widget.dart';
 
@@ -50,7 +51,10 @@ class MyPageView extends StatelessWidget {
                       width: 100, height: 100,
                       child: Align(alignment: Alignment.center, child: Text('내 리뷰'),),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder:
+                          (context) => ReviewListPage()));
+                    },
                   ),
                 ),
               ],

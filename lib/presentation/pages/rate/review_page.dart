@@ -18,37 +18,46 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(ref.watch(reviewGetter(widget.movieId)));
-    return Scaffold(
-        body: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return Container(
-                padding: EdgeInsets.all(30),
-                height: constraints.maxHeight,
-                width: constraints.maxWidth,
-                child: Column(
-                  children: [
-                    TextButton(onPressed: () {
-                      ref.read(reviewSaver(Review(widget.movieId, textController.text)));
-                      print(textController.text);
-                      Navigator.pop(context);
-                    }, child: Text('저장')),
-                    TextFormField(
-                      controller: textController,
-                      decoration: InputDecoration(
-                        hintText: '오늘은 당신의 기염둥이가 어떤 행동을 했나요?',
+    AsyncValue<String?> savedResult = ref.watch(reviewGetter(widget.movieId));
+    return savedResult.when(
+        data: (data) {
+          textController = TextEditingController(text: data);
+          return Scaffold(
+              body: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return Container(
+                      padding: EdgeInsets.all(30),
+                      height: constraints.maxHeight,
+                      width: constraints.maxWidth,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            TextButton(onPressed: () {
+                              ref.read(reviewSaver(Review(widget.movieId,
+                                  textController.text)));
+                              print(textController.text);
+                              Navigator.pop(context);
+                            }, child: Text('저장')),
+                            TextFormField(
+                              controller: textController,
+                              decoration: InputDecoration(
+                                hintText: '이 영화에 대한 감상을 남겨보세요',
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }));
+                    );
+                  }));
+        }, loading: () => Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Text('${err}')
+    );
   }
-
-  @override
-  void initState() {
-    textController = TextEditingController();
-  }
+  //
+  // @override
+  // void initState() {
+  //   textController = TextEditingController();
+  // }
 
   @override
   void dispose() {

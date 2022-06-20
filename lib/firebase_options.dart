@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:305272884885:android:7e264eb6d1c6fc821b959c',
     messagingSenderId: '305272884885',
     projectId: 'vwmdb-b930c',
+    databaseURL: 'https://vwmdb-b930c-default-rtdb.firebaseio.com',
     storageBucket: 'vwmdb-b930c.appspot.com',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:305272884885:ios:c98006fbbc2465af1b959c',
     messagingSenderId: '305272884885',
     projectId: 'vwmdb-b930c',
+    databaseURL: 'https://vwmdb-b930c-default-rtdb.firebaseio.com',
     storageBucket: 'vwmdb-b930c.appspot.com',
     iosClientId: '305272884885-goc6e1flq6lc1v5f012f69p1e8fpbtlm.apps.googleusercontent.com',
     iosBundleId: 'com.example.vwmdb',
