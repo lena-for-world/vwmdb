@@ -18,7 +18,8 @@ class SingleMoviePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<SingleMovieModel> singleMovieModel = ref.watch(singleMovieProvider(movieId));
+    ref.watch(movieViewModelProvider).getSingleMovie(movieId);
+    AsyncValue<SingleMovieModel> singleMovieModel = ref.watch(movieViewModelProvider).singleMovie;
     return singleMovieModel.when(
       data: (data) {
         return Scaffold(

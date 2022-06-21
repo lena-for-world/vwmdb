@@ -8,54 +8,55 @@ import '../../../domain/usecases/movie/boxoffice_movie_usecase.dart';
 import '../../../domain/usecases/movie/latest_movie_usecase.dart';
 import '../../../domain/usecases/movie/single_movie_usecase.dart';
 import '../rate/rate_viewmodel.dart';
+import 'fix_movie_viewmodel.dart';
 
-final latestMoviesProvider = FutureProvider.autoDispose<List<LatestMovieModel>> ((ref) async {
-  final latestMoviesList = await ref.watch(latestMovieUsecaseProvider).getLatestMovies();
-  return latestMoviesList;
-});
+// final latestMoviesProvider = FutureProvider.autoDispose<List<LatestMovieModel>> ((ref) async {
+//   final latestMoviesList = await ref.watch(latestMovieUsecaseProvider).getLatestMovies();
+//   return latestMoviesList;
+// });
+//
+// final singleMovieProvider = FutureProvider.autoDispose.family<SingleMovieModel, int> ((ref, movieId) async {
+//   final singleMovie = await ref.watch(singleMovieUsecaseProvider).getSingleMovieDetail(movieId);
+//   return singleMovie;
+// });
+//
+// final boxofficeMoviesProvider = FutureProvider.autoDispose<List<BoxofficeMovieModel>> ((ref) async {
+//   ref.watch(checkInWatchListStateProvider);
+//   final boxofficeMoviesList = await ref.watch(boxofficeMovieUsecaseProvider).getBoxofficeMovies();
+//   return boxofficeMoviesList;
+// });
+//
+// final trailerIdProvider = FutureProvider.autoDispose.family<String, int> ((ref, id) async {
+//   return await ref.watch(latestMovieUsecaseProvider).getTrailer(id);
+// });
 
-final singleMovieProvider = FutureProvider.autoDispose.family<SingleMovieModel, int> ((ref, movieId) async {
-  final singleMovie = await ref.watch(singleMovieUsecaseProvider).getSingleMovieDetail(movieId);
-  return singleMovie;
-});
-
-final boxofficeMoviesProvider = FutureProvider.autoDispose<List<BoxofficeMovieModel>> ((ref) async {
-  ref.watch(checkInWatchListStateProvider);
-  final boxofficeMoviesList = await ref.watch(boxofficeMovieUsecaseProvider).getBoxofficeMovies();
-  return boxofficeMoviesList;
-});
-
-final trailerIdProvider = FutureProvider.autoDispose.family<String, int> ((ref, id) async {
-  return await ref.watch(latestMovieUsecaseProvider).getTrailer(id);
-});
-
-final movieRemoteDataSourceProvider = Provider.autoDispose<MovieRemoteDataSource>((ref) {
+final movieRemoteDataSourceProvider = Provider<MovieRemoteDataSource>((ref) {
   return MovieRemoteDataSourceImpl();
 });
 
-final movieRepositoryProvider = Provider.autoDispose<MovieRepository>((ref) {
+final movieRepositoryProvider = Provider<MovieRepository>((ref) {
   return MovieRepositoryImpl(ref.watch(movieRemoteDataSourceProvider));
 });
 
-final latestMovieUsecaseProvider = Provider.autoDispose<LatestMovieUsecase>((ref) {
+final latestMovieUsecaseProvider = Provider<LatestMovieUsecase>((ref) {
   return LatestMovieUsecase(ref.watch(movieRepositoryProvider));
 });
 
-final boxofficeMovieUsecaseProvider = Provider.autoDispose<BoxofficeMovieUsecase>((ref) {
+final boxofficeMovieUsecaseProvider = Provider<BoxofficeMovieUsecase>((ref) {
   return BoxofficeMovieUsecase(ref.watch(movieRepositoryProvider));
 });
 
-final singleMovieUsecaseProvider = Provider.autoDispose<SingleMovieUsecase>((ref) {
+final singleMovieUsecaseProvider = Provider<SingleMovieUsecase>((ref) {
   return SingleMovieUsecase(ref.watch(movieRepositoryProvider));
 });
 
-// final movieViewModelProvider = ChangeNotifierProvider<MovieViewModel>((ref) {
-//   return MovieViewModel(
-//       latestMovieUsecase: ref.watch(latestMovieUsecaseProvider),
-//       boxofficeMovieUsecase: ref.watch(boxofficeMovieUsecaseProvider),
-//       singleMovieUsecase: ref.watch(singleMovieUsecaseProvider)
-//   );
-// });
+final movieViewModelProvider = ChangeNotifierProvider<MovieViewModel>((ref) {
+  return MovieViewModel(
+      latestMovieUsecase: ref.watch(latestMovieUsecaseProvider),
+      boxofficeMovieUsecase: ref.watch(boxofficeMovieUsecaseProvider),
+      singleMovieUsecase: ref.watch(singleMovieUsecaseProvider)
+  );
+});
 
 // final refreshMainProvider = FutureProvider<void>((ref) async {
 // MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();

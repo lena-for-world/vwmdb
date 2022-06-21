@@ -34,9 +34,9 @@ class SingleMovieModel extends Movie {
       overview: json['overview'] ?? 'null',
       poster: json['poster_path'] ?? defaultPoster,
       year: json['release_date'] ?? 'null',
-      runtime: json['runtime'] ?? 'null',
-      voteAverage: json['vote_average'] ?? 'null',
-      voteCount: json['vote_count'] ?? 'null',
+      runtime: json['runtime'] ?? 0,
+      voteAverage: json['vote_average'] ?? 0,
+      voteCount: json['vote_count'] ?? 0,
       genres: genres ?? [],
     );
   }

@@ -16,10 +16,10 @@ class TrailerFrame extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<String> asyncTrailerId = ref.watch(trailerIdProvider(movieId));
+    ref.watch(movieViewModelProvider).getTrailerId(movieId);
+    AsyncValue<String> asyncTrailerId = ref.watch(movieViewModelProvider).trailerId;//ref.watch(trailerIdProvider(movieId));
     return asyncTrailerId.when(
       data: (data) {
-        print(data);
         return MaterialApp(
           title: 'Youtube Player IFrame Demo',
           theme: ThemeData(
@@ -54,7 +54,6 @@ class _TrailerPlayerState extends State<TrailerPlayer> {
   @override
   void initState() {
     super.initState();
-    print('id: ${widget.trailerId}');
     _controller = YoutubePlayerController(
       initialVideoId: widget.trailerId,
       params: YoutubePlayerParams(

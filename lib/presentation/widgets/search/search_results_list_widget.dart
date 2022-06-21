@@ -72,6 +72,8 @@ class SearchedResultItem extends StatelessWidget {
             )
         ),
         onTap: () {
+          print(searchedMovieModel.movieId);
+          print(searchedMovieModel.movieId.runtimeType);;
           Navigator.of(context).push(MaterialPageRoute(builder:
               (context) => SingleMoviePage(searchedMovieModel.movieId)
           ));

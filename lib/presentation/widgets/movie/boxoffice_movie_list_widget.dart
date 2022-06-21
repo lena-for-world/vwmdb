@@ -11,7 +11,7 @@ class BoxOfficeList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    AsyncValue<List<BoxofficeMovieModel>> boxofficeMovies = ref.watch(boxofficeMoviesProvider);
+    AsyncValue<List<BoxofficeMovieModel>> boxofficeMovies = ref.watch(movieViewModelProvider).boxofficeMoviesList; //ref.watch(boxofficeMoviesProvider);
 
     return boxofficeMovies.when(
       data: (data) {
