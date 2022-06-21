@@ -8,7 +8,6 @@ import '../../../domain/usecases/movie/boxoffice_movie_usecase.dart';
 import '../../../domain/usecases/movie/latest_movie_usecase.dart';
 import '../../../domain/usecases/movie/single_movie_usecase.dart';
 import '../rate/rate_viewmodel.dart';
-import 'fix_movie_viewmodel.dart';
 
 final latestMoviesProvider = FutureProvider.autoDispose<List<LatestMovieModel>> ((ref) async {
   final latestMoviesList = await ref.watch(latestMovieUsecaseProvider).getLatestMovies();
