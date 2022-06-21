@@ -37,9 +37,6 @@ class ReviewRemoteSourceImpl implements ReviewRemoteSource {
   Future<List<ReviewModel>> getReviewAll() async {
     List<ReviewModel> reviewModels = [];
     await ref.child('${uuid}').get().then((val) {
-      print(val.key);
-      print(val.value);
-      print(val.value.runtimeType);
       Map<String, dynamic> res = json.decode(json.encode(val.value));
       res.forEach((key, value) {
         reviewModels.add(ReviewModel.fromJson(int.parse(key), value['review']));
