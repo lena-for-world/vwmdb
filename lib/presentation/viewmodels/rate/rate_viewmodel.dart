@@ -7,7 +7,7 @@ import '../../../data/repositories/rate/rate_repository.dart';
 import '../../../domain/entities/movie_entity.dart';
 import '../../../domain/usecases/rate/rate_usecase.dart';
 
-final checkInWatchListStateProvider = StateProvider.autoDispose<int>((ref) => 0);
+final checkInWatchListStateProvider = StateProvider<int>((ref) => 0);
 
 final rateProvider = Provider.autoDispose<RateUsecase>((ref) {
   RateLocalSource rateLocalSource = RateLocalSourceImpl(Hive.box('myMovies'));

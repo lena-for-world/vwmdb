@@ -18,7 +18,7 @@ abstract class MovieRemoteDataSource {
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   MovieRemoteDataSourceImpl();
-  Dio dio = DioImpl().getInstance;
+  Dio dio = Dio();//DioImpl().getInstance;
 
   @override
   Future<List<LatestMovieModel>> getLatestMovies() async {

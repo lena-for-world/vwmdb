@@ -20,9 +20,10 @@ class BoxOfficeListItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(starStateProvider);
-    ref.watch(movieViewModelProvider).getSingleMovie(boxofficeMovieModel.movieId);
+    //ref.watch(singleMovieViewModelProvider).getSingleMovie(boxofficeMovieModel.movieId);
     //AsyncValue<SingleMovieModel> singleMovieModel = ref.watch(movieViewModelProvider).singleMovie;
-    AsyncValue<SingleMovieModel> movieRatedByOthersModel = ref.watch(movieViewModelProvider).singleMovie;//ref.watch(singleMovieProvider(boxofficeMovieModel.movieId));
+    //AsyncValue<SingleMovieModel> movieRatedByOthersModel = ref.watch(singleMovieViewModelProvider).singleMovie;//ref.watch(singleMovieProvider(boxofficeMovieModel.movieId));
+    AsyncValue<SingleMovieModel> movieRatedByOthersModel = ref.watch(singleMovieProvider(boxofficeMovieModel.movieId));
     double movieRatedByOthers = movieRatedByOthersModel.when(
       data: (data) => data.voteAverage,
       loading: () => 0.0,

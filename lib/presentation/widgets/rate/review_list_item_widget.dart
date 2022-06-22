@@ -13,8 +13,9 @@ class ReviewListItem extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(movieViewModelProvider).getSingleMovie(reviewModel.movieId);
-    AsyncValue<SingleMovieModel> movie = ref.watch(movieViewModelProvider).singleMovie;// ref.watch(singleMovieProvider(reviewModel.movieId));
+    // ref.watch(singleMovieViewModelProvider).getSingleMovie(reviewModel.movieId);
+    // AsyncValue<SingleMovieModel> movie = ref.watch(singleMovieViewModelProvider).singleMovie;// ref.watch(singleMovieProvider(reviewModel.movieId));
+    AsyncValue<SingleMovieModel> movie = ref.watch(singleMovieProvider(reviewModel.movieId));
     return movie.when(data: (movie) {
       return ListTile(
         title: Text(movie.title),

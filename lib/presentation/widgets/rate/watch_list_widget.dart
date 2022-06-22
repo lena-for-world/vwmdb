@@ -13,9 +13,9 @@ class WatchList extends ConsumerWidget {
     List<WatchListItem> resultList = [];
     List<int> inWatchLists = ref.watch(moviesInWatchlistProvider);
     inWatchLists.forEach((element) {
-      ref.watch(movieViewModelProvider).getSingleMovie(element);
-      AsyncValue<SingleMovieModel> fetchedResult = ref.watch(movieViewModelProvider).singleMovie;// ref.watch(singleMovieProvider(reviewModel.movieId));
-      //var fetchedResult = ref.watch(singleMovieProvider(element));
+      // ref.watch(singleMovieViewModelProvider).getSingleMovie(element);
+      // AsyncValue<SingleMovieModel> fetchedResult = ref.watch(singleMovieViewModelProvider).singleMovie;// ref.watch(singleMovieProvider(reviewModel.movieId));
+      var fetchedResult = ref.watch(singleMovieProvider(element));
       fetchedResult.when(
         data: (data) {
           resultList.add(WatchListItem(data));

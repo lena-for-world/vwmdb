@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vwmdb/presentation/viewmodels/movie/single_movie_viewmodel.dart';
 import '../../../data/datasources/movie/movie_remote_data_source.dart';
 import '../../../data/models/movie/boxoffice_movie_model.dart';
 import '../../../data/models/movie/latest_movie_model.dart';
@@ -15,10 +16,11 @@ import 'fix_movie_viewmodel.dart';
 //   return latestMoviesList;
 // });
 //
-// final singleMovieProvider = FutureProvider.autoDispose.family<SingleMovieModel, int> ((ref, movieId) async {
-//   final singleMovie = await ref.watch(singleMovieUsecaseProvider).getSingleMovieDetail(movieId);
-//   return singleMovie;
-// });
+final singleMovieProvider = FutureProvider.autoDispose.family<SingleMovieModel, int> ((ref, movieId) async {
+  ref.watch(checkInWatchListStateProvider);
+  final singleMovie = await ref.watch(singleMovieUsecaseProvider).getSingleMovieDetail(movieId);
+  return singleMovie;
+});
 //
 // final boxofficeMoviesProvider = FutureProvider.autoDispose<List<BoxofficeMovieModel>> ((ref) async {
 //   ref.watch(checkInWatchListStateProvider);
@@ -30,33 +32,38 @@ import 'fix_movie_viewmodel.dart';
 //   return await ref.watch(latestMovieUsecaseProvider).getTrailer(id);
 // });
 
-final movieRemoteDataSourceProvider = Provider<MovieRemoteDataSource>((ref) {
+final movieRemoteDataSourceProvider = Provider.autoDispose<MovieRemoteDataSource>((ref) {
   return MovieRemoteDataSourceImpl();
 });
 
-final movieRepositoryProvider = Provider<MovieRepository>((ref) {
+final movieRepositoryProvider = Provider.autoDispose<MovieRepository>((ref) {
   return MovieRepositoryImpl(ref.watch(movieRemoteDataSourceProvider));
 });
 
-final latestMovieUsecaseProvider = Provider<LatestMovieUsecase>((ref) {
+final latestMovieUsecaseProvider = Provider.autoDispose<LatestMovieUsecase>((ref) {
   return LatestMovieUsecase(ref.watch(movieRepositoryProvider));
 });
 
-final boxofficeMovieUsecaseProvider = Provider<BoxofficeMovieUsecase>((ref) {
+final boxofficeMovieUsecaseProvider = Provider.autoDispose<BoxofficeMovieUsecase>((ref) {
   return BoxofficeMovieUsecase(ref.watch(movieRepositoryProvider));
 });
 
-final singleMovieUsecaseProvider = Provider<SingleMovieUsecase>((ref) {
+final singleMovieUsecaseProvider = Provider.autoDispose<SingleMovieUsecase>((ref) {
   return SingleMovieUsecase(ref.watch(movieRepositoryProvider));
 });
 
-final movieViewModelProvider = ChangeNotifierProvider<MovieViewModel>((ref) {
+final movieViewModelProvider = ChangeNotifierProvider.autoDispose<MovieViewModel>((ref) {
   return MovieViewModel(
       latestMovieUsecase: ref.watch(latestMovieUsecaseProvider),
-      boxofficeMovieUsecase: ref.watch(boxofficeMovieUsecaseProvider),
-      singleMovieUsecase: ref.watch(singleMovieUsecaseProvider)
+      boxofficeMovieUsecase: ref.watch(boxofficeMovieUsecaseProvider)
   );
 });
+
+// final singleMovieViewModelProvider = ChangeNotifierProvider<SingleMovieViewModel>((ref) {
+//   return SingleMovieViewModel(
+//     singleMovieUsecase: ref.watch(singleMovieUsecaseProvider),
+//   );
+// });
 
 // final refreshMainProvider = FutureProvider<void>((ref) async {
 // MovieRemoteDataSource movieRemoteDataSource = MovieRemoteDataSourceImpl();

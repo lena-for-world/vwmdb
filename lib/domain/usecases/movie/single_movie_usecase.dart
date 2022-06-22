@@ -8,6 +8,6 @@ class SingleMovieUsecase {
   SingleMovieUsecase(this.movieRepository);
 
   Future<SingleMovieModel> getSingleMovieDetail(int movieId) async {
-    return await movieRepository.getSingleMovieDetail(movieId);
+    return movieRepository.getSingleMovieDetail(movieId);
   }
 }

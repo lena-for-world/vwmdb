@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vwmdb/presentation/viewmodels/movie/movie_viewmodel.dart';
 
 import '../../../data/models/movie/boxoffice_movie_model.dart';
+import '../../viewmodels/rate/rate_viewmodel.dart';
 import '../../viewmodels/rate/watchlist_viewmodel.dart';
 import 'boxoffice_movie_list_item_widget.dart';
 
@@ -12,7 +13,7 @@ class BoxOfficeList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     AsyncValue<List<BoxofficeMovieModel>> boxofficeMovies = ref.watch(movieViewModelProvider).boxofficeMoviesList; //ref.watch(boxofficeMoviesProvider);
-
+    ref.watch(checkInWatchListStateProvider);
     return boxofficeMovies.when(
       data: (data) {
         return SingleChildScrollView(

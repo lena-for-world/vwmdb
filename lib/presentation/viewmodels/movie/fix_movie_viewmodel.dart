@@ -12,22 +12,22 @@ import '../../../data/models/movie/single_movie_model.dart';
 class MovieViewModel extends ChangeNotifier {
   LatestMovieUsecase latestMovieUsecase;
   BoxofficeMovieUsecase boxofficeMovieUsecase;
-  SingleMovieUsecase singleMovieUsecase;
+  //SingleMovieUsecase singleMovieUsecase;
 
   AsyncValue<List<LatestMovieModel>> _latestMoviesList = AsyncValue.loading();
   AsyncValue<List<BoxofficeMovieModel>> _boxofficeMoviesList = AsyncValue.loading();
-  AsyncValue<SingleMovieModel> _singleMovie= AsyncValue.loading();
+  //AsyncValue<SingleMovieModel> _singleMovie= AsyncValue.loading();
   AsyncValue<String> _trailerId = AsyncValue.loading();
 
   AsyncValue<List<LatestMovieModel>> get latestMoviesList => _latestMoviesList;
   AsyncValue<List<BoxofficeMovieModel>> get boxofficeMoviesList => _boxofficeMoviesList;
-  AsyncValue<SingleMovieModel> get singleMovie => _singleMovie;
+ // AsyncValue<SingleMovieModel> get singleMovie => _singleMovie;
   AsyncValue<String> get trailerId => _trailerId;
 
   MovieViewModel({
     required this.latestMovieUsecase,
     required this.boxofficeMovieUsecase,
-    required this.singleMovieUsecase
+   // required this.singleMovieUsecase
   }) {
     getMovies();
   }
@@ -38,11 +38,11 @@ class MovieViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getSingleMovie(int movieId) async {
-    _singleMovie = AsyncValue.data(await singleMovieUsecase.getSingleMovieDetail(movieId));
-    notifyListeners();
-  }
-
+  // void getSingleMovie(int movieId) async {
+  //   _singleMovie = AsyncValue.data(await singleMovieUsecase.getSingleMovieDetail(movieId));
+  // //  notifyListeners();
+  // }
+  //
   void getTrailerId(int movieId) async {
     _trailerId = AsyncValue.data(await latestMovieUsecase.getTrailer(movieId));
     notifyListeners();

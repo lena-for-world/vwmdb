@@ -23,7 +23,7 @@ class MovieRepositoryImpl implements MovieRepository {
   }
   @override
   Future<SingleMovieModel> getSingleMovieDetail(int movieId) async {
-    return await movieRemoteDataSource.getSingleMovieDetail(movieId);
+    return movieRemoteDataSource.getSingleMovieDetail(movieId);
   }
 
   @override
